@@ -1,0 +1,29 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "proyecto Integrador",
+  "main": "app.js",
+  "scripts": {
+    "start":"live-server public",
+    "build": "postcss css/tailwind.css -o public/build/tailwind.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BluDemons/proyectoCuarto.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "Juan Rojas, Roger Cedeño",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BluDemons/proyectoCuarto/issues"
+  },
+  "homepage": "https://github.com/BluDemons/proyectoCuarto#readme",
+  "dependencies": {
+    "autoprefixer": "^9.7.3",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.1.4"
+  }
+}
