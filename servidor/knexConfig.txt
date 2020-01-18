@@ -21,3 +21,5 @@
 
 - knex seed:make "nombre_de_semilla"
 - knex seed:run
+
+- http://localhost:8001/server/scooter?tabla=persona metodo pra buscar

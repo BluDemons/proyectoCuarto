@@ -7,7 +7,7 @@
     "start": "nodemon ./instalacion/index.js",
     "seed": "knex seed:run"
   },
-  "author": "Johao Perlaza",
+  "author": "Roger Cedeño- Juan Rojas",
   "license": "MIT",
   "dependencies": {
     "eslint-config-prettier": "^6.9.0",
