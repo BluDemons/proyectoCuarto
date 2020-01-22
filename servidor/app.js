@@ -2,7 +2,7 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
-const t_reserv = require("./rutas/ruta_tipo_reserva");
+const t_reserv = require("./rutas/rutas");
 const cors = require("cors");
 
 const PORT = 3000;
