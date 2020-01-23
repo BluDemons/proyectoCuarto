@@ -268,9 +268,9 @@ router.post("/persona", (req, res, next) => {
 });
 router.put("/persona",async(req,res)=>{
     const { id } = req.query;
-    const {tipoPersonaNombre}=req.body;
-    const data =await Personas.findAll({
-        atributes:["tipoPersonaNombre"],
+    const {nombres,apellidos,direccion,password,email,tipoPersonaNombre}=req.body;
+    const data =await persons.findAll({
+        atributes:["nombres","apellidos","direccion","password","email","tipoPersonaNombre"],
         where:{
             id
         }
@@ -280,6 +280,10 @@ router.put("/persona",async(req,res)=>{
         data.forEach(async element => {
            await element.update({
                 id,
+                nombres,
+                apellidos,
+                password,
+                email,
                 tipoPersonaNombre,
             });
         });
@@ -337,6 +341,34 @@ router.post("/detalle", (req, res, next) => {
                 res.json("error: " + err);
             });
     }
+});
+
+router.put("/detalle",async(req,res)=>{
+    const { id } = req.query;
+    const {descripccion,precio_total,idpersona,idscooter,idTipoReserva}=req.body;
+    const data =await detalles.findAll({
+        atributes:["descripccion","precio_total","idpersona","idscooter","idTipoReserva"],
+        where:{
+            id
+        }
+    });
+
+    if(data.length>0){
+        data.forEach(async element => {
+           await element.update({
+                id,
+                descripcion,
+                precio_total,
+                idpersona,
+                idscooter,
+                idTipoReserva,
+            });
+        });
+    }
+    return res.json({
+        message:"actualizado",
+        data:data
+    })
 });
 
 router.delete("/detalle", async (req, res) => {

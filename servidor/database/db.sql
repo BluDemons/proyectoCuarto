@@ -27,12 +27,12 @@ direccion char(150),
 password char(150),
 email char (150),
 tipoPersonaNombre int, 
-foreign key (id_tipo_persona) references tipo_personas(id)
+foreign key (tipoPersonaNombre) references tipo_personas(id)
 );
 
 create table detalle_reservas(
 id int auto_increment not null primary key,
-descripccion char(150),
+descripcion char(150),
 precio_total decimal (3,2),
 idpersona int,
 foreign key (idpersona) references personas(id),
