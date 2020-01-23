@@ -27,7 +27,7 @@ direccion char(150),
 password char(150),
 email char (150),
 tipoPersonaNombre int, 
-foreign key (tipoPersonaNombre) references tipo_personas(id)
+foreign key (id_tipo_persona) references tipo_personas(id)
 );
 
 create table detalle_reservas(

@@ -4,9 +4,9 @@ const router = express.Router();
 
 const Reserva = require("../models/tiporeserva");
 const Scooter = require("../models/scotter");
-const Personas= require("../models/tipo_personas");
-const persons= require("../models/personas");
-const detalles= require("../models/detalle_reserva");
+const Personas = require("../models/tipo_personas");
+const persons = require("../models/personas");
+const detalles = require("../models/detalle_reserva");
 //tipo_reservas metodos
 router.get("/treserva", (req, res) => {
     const { query } = req;
@@ -29,9 +29,9 @@ router.post("/treserva", (req, res, next) => {
     if (!datos) {
         res.status(400);
         res,
-        json({
-            error: "Datos incorrectos"
-        });
+            json({
+                error: "Datos incorrectos"
+            });
     } else {
         Reserva.create(datos)
             .then(data => {
@@ -43,8 +43,43 @@ router.post("/treserva", (req, res, next) => {
     }
 });
 
+ router.put("/treserva",async(req,res)=>{
+    const { id } = req.query;
+    const {descripcion,precio,hora}=req.body;
+    const data =await Reserva.findAll({
+        atributes:["id","descripcion","precio","hora"],
+        where:{
+            id
+        }
+    });
+
+    if(data.length>0){
+        data.forEach(async element => {
+           await element.update({
+                id,
+                descripcion,
+                precio,
+                hora,
+            });
+        });
+    }
+    return res.json({
+        message:"actualizado",
+        data:data
+    })
+});
 
 
+router.delete("/treserva", async (req, res) => {
+    const { id } = req.query;
+    const eliminar = await Reserva.destroy({
+        where: { id }
+    });
+    res.json({
+        message: "eliminado",
+        data: eliminar
+    })
+});
 
 
 //scooter metodos
@@ -69,9 +104,9 @@ router.post("/scooter", (req, res, next) => {
     if (!datos) {
         res.status(400);
         res,
-        json({
-            error: "Datos incorrectos"
-        });
+            json({
+                error: "Datos incorrectos"
+            });
     } else {
         Scooter.create(datos)
             .then(data => {
@@ -82,6 +117,44 @@ router.post("/scooter", (req, res, next) => {
             });
     }
 });
+
+router.put("/scooter",async(req,res)=>{
+    const { id } = req.query;
+    const {descripcion,estado,codigo}=req.body;
+    const data =await Scooter.findAll({
+        atributes:["id","descripcion","estado","codigo"],
+        where:{
+            id
+        }
+    });
+
+    if(data.length>0){
+        data.forEach(async element => {
+           await element.update({
+                id,
+                descripcion,
+                estado,
+                codigo,
+            });
+        });
+    }
+    return res.json({
+        message:"actualizado",
+        data:data
+    })
+});
+
+router.delete("/scooter", async (req, res) => {
+    const { codigo } = req.query;
+    const eliminar = await Reserva.destroy({
+        where: { codigo }
+    });
+    res.json({
+        message: "eliminado",
+        data: eliminar
+    })
+});
+
 
 
 
@@ -105,9 +178,9 @@ router.post("/tpersona", (req, res, next) => {
     if (!datos) {
         res.status(400);
         res,
-        json({
-            error: "Datos incorrectos"
-        });
+            json({
+                error: "Datos incorrectos"
+            });
     } else {
         Personas.create(datos)
             .then(data => {
@@ -118,6 +191,42 @@ router.post("/tpersona", (req, res, next) => {
             });
     }
 });
+
+router.put("/tpersona",async(req,res)=>{
+    const { id } = req.query;
+    const {tipoPersonaNombre}=req.body;
+    const data =await Personas.findAll({
+        atributes:["tipoPersonaNombre"],
+        where:{
+            id
+        }
+    });
+
+    if(data.length>0){
+        data.forEach(async element => {
+           await element.update({
+                id,
+                tipoPersonaNombre,
+            });
+        });
+    }
+    return res.json({
+        message:"actualizado",
+        data:data
+    })
+});
+
+router.delete("/tpersona", async (req, res) => {
+    const { id } = req.query;
+    const eliminar = await Reserva.destroy({
+        where: { id }
+    });
+    res.json({
+        message: "eliminado",
+        data: eliminar
+    })
+});
+
 
 //personas metodos
 router.get("/persona", (req, res) => {
@@ -144,9 +253,9 @@ router.post("/persona", (req, res, next) => {
     if (!datos) {
         res.status(400);
         res,
-        json({
-            error: "Datos incorrectos"
-        });
+            json({
+                error: "Datos incorrectos"
+            });
     } else {
         persons.create(datos)
             .then(data => {
@@ -156,6 +265,39 @@ router.post("/persona", (req, res, next) => {
                 res.json("error: " + err);
             });
     }
+});
+router.put("/persona",async(req,res)=>{
+    const { id } = req.query;
+    const {tipoPersonaNombre}=req.body;
+    const data =await Personas.findAll({
+        atributes:["tipoPersonaNombre"],
+        where:{
+            id
+        }
+    });
+
+    if(data.length>0){
+        data.forEach(async element => {
+           await element.update({
+                id,
+                tipoPersonaNombre,
+            });
+        });
+    }
+    return res.json({
+        message:"actualizado",
+        data:data
+    })
+});
+router.delete("/persona", async (req, res) => {
+    const { id } = req.query;
+    const eliminar = await Reserva.destroy({
+        where: { id }
+    });
+    res.json({
+        message: "eliminado",
+        data: eliminar
+    })
 });
 
 
@@ -183,9 +325,9 @@ router.post("/detalle", (req, res, next) => {
     if (!datos) {
         res.status(400);
         res,
-        json({
-            error: "Datos incorrectos"
-        });
+            json({
+                error: "Datos incorrectos"
+            });
     } else {
         detalles.create(datos)
             .then(data => {
@@ -195,6 +337,17 @@ router.post("/detalle", (req, res, next) => {
                 res.json("error: " + err);
             });
     }
+});
+
+router.delete("/detalle", async (req, res) => {
+    const { id } = req.query;
+    const eliminar = await Reserva.destroy({
+        where: { id }
+    });
+    res.json({
+        message: "eliminado",
+        data: eliminar
+    })
 });
 
 module.exports = router;
