@@ -16,7 +16,7 @@ class AddsScooter extends Component {
         }
     }
     changeHandler = (e) => {
-        this.setState({ [e.target.descripcion]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value })
     }
     submitHandler=(e)=>{
         e.preventDefault()
