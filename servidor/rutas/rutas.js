@@ -43,19 +43,19 @@ router.post("/treserva", (req, res, next) => {
     }
 });
 
- router.put("/treserva",async(req,res)=>{
+router.put("/treserva", async (req, res) => {
     const { id } = req.query;
-    const {descripcion,precio,hora}=req.body;
-    const data =await Reserva.findAll({
-        atributes:["id","descripcion","precio","hora"],
-        where:{
+    const { descripcion, precio, hora } = req.body;
+    const data = await Reserva.findAll({
+        atributes: ["id", "descripcion", "precio", "hora"],
+        where: {
             id
         }
     });
 
-    if(data.length>0){
+    if (data.length > 0) {
         data.forEach(async element => {
-           await element.update({
+            await element.update({
                 id,
                 descripcion,
                 precio,
@@ -64,8 +64,8 @@ router.post("/treserva", (req, res, next) => {
         });
     }
     return res.json({
-        message:"actualizado",
-        data:data
+        message: "actualizado",
+        data: data
     })
 });
 
@@ -118,19 +118,19 @@ router.post("/scooter", (req, res, next) => {
     }
 });
 
-router.put("/scooter",async(req,res)=>{
+router.put("/scooter", async (req, res) => {
     const { id } = req.query;
-    const {descripcion,estado,codigo}=req.body;
-    const data =await Scooter.findAll({
-        atributes:["id","descripcion","estado","codigo"],
-        where:{
+    const { descripcion, estado, codigo } = req.body;
+    const data = await Scooter.findAll({
+        atributes: ["id", "descripcion", "estado", "codigo"],
+        where: {
             id
         }
     });
 
-    if(data.length>0){
+    if (data.length > 0) {
         data.forEach(async element => {
-           await element.update({
+            await element.update({
                 id,
                 descripcion,
                 estado,
@@ -139,8 +139,8 @@ router.put("/scooter",async(req,res)=>{
         });
     }
     return res.json({
-        message:"actualizado",
-        data:data
+        message: "actualizado",
+        data: data
     })
 });
 
@@ -192,27 +192,27 @@ router.post("/tpersona", (req, res, next) => {
     }
 });
 
-router.put("/tpersona",async(req,res)=>{
+router.put("/tpersona", async (req, res) => {
     const { id } = req.query;
-    const {tipoPersonaNombre}=req.body;
-    const data =await Personas.findAll({
-        atributes:["tipoPersonaNombre"],
-        where:{
+    const { tipoPersonaNombre } = req.body;
+    const data = await Personas.findAll({
+        atributes: ["tipoPersonaNombre"],
+        where: {
             id
         }
     });
 
-    if(data.length>0){
+    if (data.length > 0) {
         data.forEach(async element => {
-           await element.update({
+            await element.update({
                 id,
                 tipoPersonaNombre,
             });
         });
     }
     return res.json({
-        message:"actualizado",
-        data:data
+        message: "actualizado",
+        data: data
     })
 });
 
@@ -266,19 +266,19 @@ router.post("/persona", (req, res, next) => {
             });
     }
 });
-router.put("/persona",async(req,res)=>{
+router.put("/persona", async (req, res) => {
     const { id } = req.query;
-    const {nombres,apellidos,direccion,password,email,tipoPersonaNombre}=req.body;
-    const data =await persons.findAll({
-        atributes:["nombres","apellidos","direccion","password","email","tipoPersonaNombre"],
-        where:{
+    const { nombres, apellidos, direccion, password, email, tipoPersonaNombre } = req.body;
+    const data = await persons.findAll({
+        atributes: ["nombres", "apellidos", "direccion", "password", "email", "tipoPersonaNombre"],
+        where: {
             id
         }
     });
 
-    if(data.length>0){
+    if (data.length > 0) {
         data.forEach(async element => {
-           await element.update({
+            await element.update({
                 id,
                 nombres,
                 apellidos,
@@ -289,8 +289,8 @@ router.put("/persona",async(req,res)=>{
         });
     }
     return res.json({
-        message:"actualizado",
-        data:data
+        message: "actualizado",
+        data: data
     })
 });
 router.delete("/persona", async (req, res) => {
@@ -343,19 +343,19 @@ router.post("/detalle", (req, res, next) => {
     }
 });
 
-router.put("/detalle",async(req,res)=>{
+router.put("/detalle", async (req, res) => {
     const { id } = req.query;
-    const {descripccion,precio_total,idpersona,idscooter,idTipoReserva}=req.body;
-    const data =await detalles.findAll({
-        atributes:["descripccion","precio_total","idpersona","idscooter","idTipoReserva"],
-        where:{
+    const { descripccion, precio_total, idpersona, idscooter, idTipoReserva } = req.body;
+    const data = await detalles.findAll({
+        atributes: ["descripccion", "precio_total", "idpersona", "idscooter", "idTipoReserva"],
+        where: {
             id
         }
     });
 
-    if(data.length>0){
+    if (data.length > 0) {
         data.forEach(async element => {
-           await element.update({
+            await element.update({
                 id,
                 descripcion,
                 precio_total,
@@ -366,8 +366,8 @@ router.put("/detalle",async(req,res)=>{
         });
     }
     return res.json({
-        message:"actualizado",
-        data:data
+        message: "actualizado",
+        data: data
     })
 });
 
