@@ -8,14 +8,14 @@
     },
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/BluDemons/proyectoCuarto"
     },
     "author": "roger cedeño",
     "license": "MIT",
     "bugs": {
-        "url": ""
+        "url": "https://github.com/BluDemons/proyectoCuarto"
     },
-    "homepage": "",
+    "homepage": "https://github.com/BluDemons/proyectoCuarto",
     "dependencies": {
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
