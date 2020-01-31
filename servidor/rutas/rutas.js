@@ -303,7 +303,26 @@ router.delete("/persona", async (req, res) => {
         data: eliminar
     })
 });
+router.post("/login", (req, res, next) => {
+    const email = req.body.email
+    const password = req.body.password
 
+    persons.findAll()
+    .then(resultado => {
+        resultado.forEach(element => {
+            if(element.email == email && element.password == password){
+                res.status(200).json({
+                ok: true,
+                mensaje: "found"
+                })
+            }
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'no-found'
+            })
+        })
+    })
+});
 
 //detalles metodos
 router.get("/detalle", (req, res) => {
