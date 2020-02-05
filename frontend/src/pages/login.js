@@ -88,9 +88,9 @@ class Login extends Component {
 								</button>
 							</div>
 							<hr className="mb-6 border-t" />							
-							<div class="text-center text-gray-500">
+							<div className="text-center text-gray-500">
 								Copyright &copy; <a
-									class="inline-block text-sm text-blue-500 align-baseline hover:text-white"
+									className="inline-block text-sm text-blue-500 align-baseline hover:text-white"
 									href="./home"
 								>
 									 THWS

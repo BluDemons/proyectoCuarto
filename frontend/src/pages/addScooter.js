@@ -34,12 +34,7 @@ class AddsScooter extends Component {
         return (
             <div>
                 <Sidebar />,
-            <Header />,
-            <div className="component_position">
-                    <main className="my-8">
-                        <p className="text-center">Bienvenido a la sección para agregar un nuevo Scooter.</p>
-                    </main>
-                </div>
+                <Header />,
                 <form onSubmit={this.submitHandler}>  
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                         <div className="-xl-3 md:flex sm-6">

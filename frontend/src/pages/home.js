@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
         <Sidebar />,
-        <Header />,
+        <Header />
         <div className="component_position">
             <main className="my-8">
                 <hr />

@@ -11,9 +11,6 @@ const Config = () => {
             <div className="component_position">
                 <main className="my-8">
                     <p className="text-center">Bienvenido a la seccion de configuración del sistema.</p>
-    
-
-    
                 </main>
             </div>
         </div>

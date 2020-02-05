@@ -12,6 +12,7 @@ import AddsScooter from './pages/addScooter';
 import VirtualLibrary from './pages/virtualLibrary';
 import Config from './pages/config';
 import Page404 from './pages/Page404';
+import Inicio from './pages/inicio';
 
 render(<Router>
     <Switch>
@@ -21,6 +22,7 @@ render(<Router>
       <Route path="/add_book" component={ AddsScooter } />
       <Route path="/virtual_library" component={ VirtualLibrary } />
       <Route path="/config" component={ Config } />
+      <Route path="/inicio" component={Inicio}/>
       <Route component={ Page404 } />
     </Switch>
 </Router>, document.getElementById('root'));
