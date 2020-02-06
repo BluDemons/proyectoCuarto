@@ -2,9 +2,8 @@ import React from'react';
 import { Link } from "react-router-dom";
 
 const Sidebar = () => (
-        <div className="inline-flex">
-        <nav className="md:fixed md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl bg-white flex items-center justify-between md:w-64 z-auto pb-64 py-4 px-6">
-        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">            
+    <div className="relative">
+        <div className=" mt-0 fixed shadow-xl bg-white flex flex-wrap  items-center justify-between sm:hidden md:w-64 z-10 py-4 px-6 md:inline-fixed md:block md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between mx-auto">           
             <div className="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0">
                 <span className="font-semibold text-xl tracking-tight text-black">Sistema THWS</span>
             </div>
@@ -43,7 +42,6 @@ const Sidebar = () => (
                 </ul>                
             </div>
         </div>
-    </nav> 
     </div>
 )
 
