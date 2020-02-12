@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const db = require("../database/db");
 const Personas = require("./personas");
 const Scooter=require("./scotter");
-const tReserva=require("./tiporeserva");
+const horarios=require("./horarios");
 
 module.exports = db.sequelize.define("detalle_reservas", {
     id: {
@@ -31,10 +31,10 @@ module.exports = db.sequelize.define("detalle_reservas", {
             key: 'id'
         }
     },
-    idTipoReserva: {
+    idhorario: {
         type: Sequelize.INTEGER,
         references: {
-            model: tReserva,
+            model: horarios,
             key: 'id'
         }
     },

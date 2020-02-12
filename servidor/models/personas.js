@@ -3,7 +3,8 @@ const Sequelize = require("sequelize");
 const db = require("../database/db");
 
 const Tpersonas= require("./tipo_personas")
-module.exports = db.sequelize.define("personas", {
+
+module.exports = db.sequelize.define("persona", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -18,13 +19,13 @@ module.exports = db.sequelize.define("personas", {
   direccion:{
       type:Sequelize.STRING
   },
-  password:{
+  correo:{
       type:Sequelize.STRING
   },
-  email:{
+  clave:{
       type:Sequelize.STRING
   },
-  tipoPersonaNombre:{
+  idTipoPersona:{
       type:Sequelize.INTEGER,
       references:{
           model:Tpersonas,

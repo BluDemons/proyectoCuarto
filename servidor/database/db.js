@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const db = {};
 
-const sequelize = new Sequelize("scooter", "root", "password", {
+const sequelize = new Sequelize("scooter", "root", "12345678", {
   host: "localhost",
   dialect: "mysql",
   define: {

@@ -1,23 +1,17 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
-
-const t_reserv = require("./rutas/rutas");
+const routes = require("./rutas/routes");
 const cors = require("cors");
-
-const PORT = 3000;
-
+const PORT = 5000;
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-    res.send("Bienvenidos al Yavirac!");
-});
-app.use("/api", t_reserv);
+app.use("/thws", routes);
 
 app.listen(PORT, () => {
-    console.log(`Servidor en el puerto: ${PORT}`);
+    console.log(`Servidor corriendo en el puerto: ${ PORT }`);
 });

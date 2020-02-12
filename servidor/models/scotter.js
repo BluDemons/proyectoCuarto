@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const db = require("../database/db");
 
-module.exports=db.sequelize.define("scoters",{
+module.exports=db.sequelize.define("scooters",{
     id:{
       type:Sequelize.INTEGER,
       primaryKey:true,
