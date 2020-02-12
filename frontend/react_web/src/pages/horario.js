@@ -5,13 +5,13 @@ import Header from "../components/header";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const API = "http://localhost:5000/thws/persona";
+const API = "http://localhost:5000/thws/horario";
 
-class User extends Component {
+class Horario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persona: []
+      horario: []
     };
   }
 
@@ -20,13 +20,13 @@ class User extends Component {
   };
 
   componentDidMount = e => {
-    if (!this.state.persona) {
+    if (!this.state.horario) {
       console.log("No hay salas disponibles");
     } else {
       axios
         .get(API)
         .then(response => {
-          this.setState({ persona: response.data.datos });
+          this.setState({ horario: response.data.datos });
         })
         .catch(error => {
           console.log(error);
@@ -38,11 +38,11 @@ class User extends Component {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
     });
-    window.location.assign("http://localhost:3000/user");
+    window.location.assign("http://localhost:3000/horario");
   };
 
   render() {
-    const { persona } = this.state;
+    const { horario } = this.state;
     const image = require("../assets/fondo.jpg");
     return (
       <div>
@@ -51,9 +51,9 @@ class User extends Component {
         <div className="md:ml-64 xl:ml-64 sm:ml-6 pt-6 pb-8">
           <div className="justify-between flex my-0 select-none">
             <h1 className="ml-12 text-center mr-10 text-5xl">
-              Usuarios Registrados
+              Hora y Precio
             </h1>
-            <Link to="/gestion_usuario">
+            <Link to="/gestion_horario">
             <button
               type="button"
               className="mr-8 shadow-md no-underline font-black text-2xl rounded-full h-12 w-12 flex items-center justify-center bg-blue-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-pink-500 focus:outline-none active:shadow-none"
@@ -63,7 +63,7 @@ class User extends Component {
             </Link>
           </div>
           <div className="p-24 flex flex-wrap items-center justify-center">
-            {persona.map(element => (
+            {horario.map(element => (
               <div
                 className="flex-shrink-0 m-6 relative overflow-hidden bg-teal-500 rounded-lg max-w-xs shadow-lg"
                 key={element.id}
@@ -75,17 +75,12 @@ class User extends Component {
                 <div className="relative text-white px-6 pb-6 mt-6">
                   <div className=" justify-between">
                     <span className="block font-semibold text-sm">
-                    Nombres: {element.nombres}
+                    Hora: {element.hora}
                     </span>
                     <span className="block font-semibold text-sm">
-                      Apellidos: {element.apellidos}
+                    Precio: {element.precio}
                     </span>
-                    <div className="flex justify-between">
-                      <Link to="/gestion_salas">
-                        <span className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">
-                          Editar
-                        </span>
-                      </Link>
+                    <div className=" top-0 ml-32 justify-between">
                       <span
                         className="cursor-pointer justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
                         onClick={() => this.deleteData(element.id)}
@@ -104,4 +99,4 @@ class User extends Component {
   }
 }
 
-export default User;
+export default Horario;

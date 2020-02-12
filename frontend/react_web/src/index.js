@@ -10,6 +10,9 @@ import Page404 from './pages/Page404';
 import Registro from './pages/registro';
 import Scooter from './pages/scooter';
 import AddScooter from './pages/addScooter';
+import User from './pages/user';
+import Horario from './pages/horario';
+import AddHorario from './pages/addHorario';
 
 ReactDOM.render(
 <Router>
@@ -19,6 +22,10 @@ ReactDOM.render(
       <Route exact path="/home" component={ Home } />
       <Route exact path="/scooter" component={ Scooter } />
       <Route exact path="/gestion_scooter" component={ AddScooter } />
+      <Route exact path="/user" component={ User } />      
+      <Route exact path="/gestion_user" component={ AddScooter } />      
+      <Route exact path="/horario" component={ Horario } />      
+      <Route exact path="/gestion_horario" component={ AddHorario } />      
       <Route component={ Page404 } />
     </Switch>
 </Router>, document.getElementById('root'));
