@@ -66,7 +66,7 @@ const deleteData = (req, res) => {
             datos: "Eliminado"
         })
         .catch((error) => {
-            return res.status(500).json({
+            return response.status(500).json({
                 ok: false,
                 datos: null,
                 mensaje: `Error del servidor: ${ error }` 
