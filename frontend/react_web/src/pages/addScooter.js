@@ -103,8 +103,8 @@ class AddScooter extends Component {
                 />
                 </div>
                 <div className="md:w-full px-3 mb-6 md:mb-0 mt-5">
-                <button className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
-                    <i className="far fa-times-circle mr-2" />
+                <button className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
+                    <i className="fas fa-qrcode mr-2" />
                     <span>Generar QR</span>
                   </button>
               </div>
@@ -130,7 +130,7 @@ class AddScooter extends Component {
                   </button>
                 </Link>
                 <button
-                  className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-4 inline-flex items-center"
+                  className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-4 inline-flex items-center"
                   type="submit"
                 >
                   <span className="mr-2">Guardar</span>

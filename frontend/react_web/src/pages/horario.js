@@ -43,7 +43,7 @@ class Horario extends Component {
 
   render() {
     const { horario } = this.state;
-    const image = require("../assets/fondo.jpg");
+    const image = require("../assets/time.jpg");
     return (
       <div>
         <Sidebar />
@@ -56,9 +56,9 @@ class Horario extends Component {
             <Link to="/gestion_horario">
             <button
               type="button"
-              className="mr-8 shadow-md no-underline font-black text-2xl rounded-full h-12 w-12 flex items-center justify-center bg-blue-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-pink-500 focus:outline-none active:shadow-none"
+              className="mr-8 shadow-md no-underline font-black rounded-full h-12 w-12 flex items-center justify-center bg-green-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-green-600 focus:outline-none active:shadow-none"
             >
-              <i className="fas fa-plus-square"></i>
+              Add
             </button>
             </Link>
           </div>

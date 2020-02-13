@@ -11,7 +11,17 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persona: []
+      table_header: {
+        nombres: "Nombres",
+        apellidos: "Apellidos",
+        direccion: "Dirección",
+        correo: "Correo Electrónico"
+      },
+      persona: [],
+      nombres: "",
+      apellidos: "",
+      direccion: "",
+      correo: ""
     };
   }
 
@@ -43,7 +53,6 @@ class User extends Component {
 
   render() {
     const { persona } = this.state;
-    const image = require("../assets/fondo.jpg");
     return (
       <div>
         <Sidebar />
@@ -54,49 +63,95 @@ class User extends Component {
               Usuarios Registrados
             </h1>
             <Link to="/gestion_usuario">
-            <button
-              type="button"
-              className="mr-8 shadow-md no-underline font-black text-2xl rounded-full h-12 w-12 flex items-center justify-center bg-blue-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-pink-500 focus:outline-none active:shadow-none"
-            >
-              <i className="fas fa-plus-square"></i>
-            </button>
-            </Link>
-          </div>
-          <div className="p-24 flex flex-wrap items-center justify-center">
-            {persona.map(element => (
-              <div
-                className="flex-shrink-0 m-6 relative overflow-hidden bg-teal-500 rounded-lg max-w-xs shadow-lg"
-                key={element.id}
+              <button
+                type="button"
+                className="mr-8 shadow-md no-underline font-black rounded-full h-12 w-12 flex items-center justify-center bg-green-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-green-500 focus:outline-none active:shadow-none"
               >
-                <div className="relative pt-10 px-10 flex items-center justify-center">
-                  <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"></div>
-                  <img className="relative w-40" src={image} alt="" />
-                </div>
-                <div className="relative text-white px-6 pb-6 mt-6">
-                  <div className=" justify-between">
-                    <span className="block font-semibold text-sm">
-                    Nombres: {element.nombres}
-                    </span>
-                    <span className="block font-semibold text-sm">
-                      Apellidos: {element.apellidos}
-                    </span>
-                    <div className="flex justify-between">
-                      <Link to="/gestion_salas">
-                        <span className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">
+                Add
+              </button>
+            </Link>
+          </div>          
+          <div className="px-3 py-4 flex justify-center">
+            <table className="w-full text-md bg-white shadow-md rounded mb-4">
+              <thead className="border-b">
+                <tr>
+                  <th className="text-left p-3 px-5">
+                    {this.state.table_header.nombres}
+                  </th>
+                  <th className="text-left p-3 px-5">
+                    {this.state.table_header.apellidos}
+                  </th>
+                  <th className="text-left p-3 px-5">
+                    {this.state.table_header.direccion}
+                  </th>
+                  <th className="text-left p-3 px-5">
+                    {this.state.table_header.correo}
+                  </th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b hover:bg-orange-100 bg-gray-100">
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        {" "}
+                        {element.nombres}{" "}
+                      </p>
+                    ))}
+                  </td>
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        {" "}
+                        {element.apellidos}{" "}
+                      </p>
+                    ))}
+                  </td>
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        {" "}
+                        {element.direccion}{" "}
+                      </p>
+                    ))}
+                  </td>
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        {" "}
+                        {element.correo}{" "}
+                      </p>
+                    ))}
+                  </td>
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        <button
+                          onClick={() => this.handleOpenModal(element.id)}
+                          className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                        >
                           Editar
-                        </span>
-                      </Link>
-                      <span
-                        className="cursor-pointer justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
-                        onClick={() => this.deleteData(element.id)}
-                      >
-                        Borrar
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                        </button>
+                      </p>
+                    ))}
+                  </td>
+                  <td>
+                    {persona.map(element => (
+                      <p className="p-2 px-5" key={element.id}>
+                        <button
+                          onClick={() => this.deleteData(element.id)}
+                          className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                        >
+                          Eliminar
+                        </button>
+                      </p>
+                    ))}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
