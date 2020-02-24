@@ -20,10 +20,6 @@ class Scooter extends Component {
   };
 
   componentDidMount = e => {
-    if (!this.scooter) {
-      return (
-        <h1 className="ml-64">"No hay dispositivos disponibles"</h1>);
-    } else {
       axios
         .get(API)
         .then(response => {
@@ -32,7 +28,6 @@ class Scooter extends Component {
         .catch(error => {
           console.log(error);
         });
-    }
   };
 
   deleteData = value => {

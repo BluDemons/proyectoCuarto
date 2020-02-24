@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import SimpleMapa from "../pages/mapa";
+// import { Link } from "react-router-dom";
+// import SimpleMapa from "../pages/mapa";
 import Grafica from "./grafica";
 import SimpleMap from "../pages/mapa";
 
