@@ -43,9 +43,9 @@ class AddScooter extends Component {
   }
   makeid=()=>{
     var result ='';
-    var characters       = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var characters       = '0123456789ABCDEFGHIJKLmnopqrstuvwxyzMNOPQRSTUVWXYZabcdefghijkl';
     for ( var i = 0; i < 16; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * 16));
+       result += characters.charAt(Math.floor(Math.random() * 32));
        this.setState({codigo:result})
     }
  }
