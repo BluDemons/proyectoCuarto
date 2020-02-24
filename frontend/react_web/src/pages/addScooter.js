@@ -3,6 +3,7 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import QRCode from "qrcode.react";
 
 const API = "http://localhost:5000/thws/scooter";
 
@@ -87,28 +88,29 @@ class AddScooter extends Component {
                 />
               </div>
               <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-full px-3 mb-6 md:mb-0">
-                <label className="block text-sm text-gray-600" htmlFor="codigo">
-                  Código:
+                <div className="md:w-full px-3 mb-6 md:mb-0">
+                  <label className="block text-sm text-gray-600" htmlFor="codigo">
+                    Código:
                 </label>
-                <input
-                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                  id="codigo"
-                  name="codigo"
-                  type="text"
-                  required={true}
-                  value={codigo}
-                  placeholder="generar codigo"
-                  onChange={this.changeHandler}
-                />
+                  <input
+                    className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    id="codigo"
+                    name="codigo"
+                    type="text"
+                    required={true}
+                    value={codigo}
+                    placeholder="generar codigo"
+                    onChange={this.changeHandler}
+                  />
+                <QRCode value="http://facebook.github.io/react/" />
                 </div>
                 <div className="md:w-full px-3 mb-6 md:mb-0 mt-5">
-                <button className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
+                  <button className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
                     <i className="fas fa-qrcode mr-2" />
                     <span>Generar QR</span>
                   </button>
+                </div>
               </div>
-              </div>              
               <div className="mt-2">
                 <label className="block text-sm text-gray-600" htmlFor="estado">
                   Estado

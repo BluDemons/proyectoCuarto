@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react_movile",
-    "slug": "react_movile",
+    "name": "app",
+    "slug": "app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
