@@ -3,6 +3,7 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import QRCode from "qrcode.react";
 
 const API = "http://localhost:5000/thws/scooter";
 
@@ -10,9 +11,10 @@ class AddScooter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      descripcion: "",
+      descripcion: '',
+      imagen: '',
       estado: 1,
-      codigo: ""
+      codigo: ''
     };
   }
 
@@ -20,22 +22,49 @@ class AddScooter extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  encodeImageFileAsURL = (e) => {
+    const reader = new FileReader();
+    const file = new Blob([e.target.value], { type: 'img/png' });
+    this.setState({ imagen: file });
+    reader.onloadend = e => {
+      this.setState({ imagen: e.target.result })
+    }
+    reader.readAsDataURL(file);
+  }
+
+  onFileChange = (e) => {
+    let file = e.target.files[0]
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      this.setState({ imagen: reader.result })
+      console.log(reader.result)
+    }
+    reader.readAsDataURL(file);
+  }
+  makeid=()=>{
+    var result ='';
+    var characters       = '0123456789ABCDEFGHIJKLmnopqrstuvwxyzMNOPQRSTUVWXYZabcdefghijkl';
+    for ( var i = 0; i < 16; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * 32));
+       this.setState({codigo:result})
+    }
+ }
   saveData = e => {
     e.preventDefault();
     this.post = {
       datos: {
         descripcion: this.state.descripcion,
         estado: this.state.estado,
-        codigo: this.state.codigo
+        codigo: this.state.codigo,
+        imagen: this.state.imagen,
       }
     };
-
-    console.log(JSON.stringify(this.post.datos));
 
     if (
       this.post.datos.descripcion === "" ||
       this.post.datos.estado === "" ||
-      this.post.datos.codigo === ""
+      this.post.datos.codigo === "" ||
+      this.post.datos.imagen === ""
     ) {
       alert("Complete todos los campos para continuar...");
     } else {
@@ -54,7 +83,7 @@ class AddScooter extends Component {
   };
 
   render() {
-    const { descripcion, estado, codigo } = this.state;
+    const { descripcion, estado, codigo, imagen, } = this.state;
     return (
       <div>
         <Sidebar />
@@ -86,29 +115,43 @@ class AddScooter extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-full px-3 mb-6 md:mb-0">
-                <label className="block text-sm text-gray-600" htmlFor="codigo">
-                  Código:
+              <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
+                <label className=" block text-sm text-gray-600" htmlFor="imagen">
+                  Imagen
                 </label>
                 <input
-                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                  id="codigo"
-                  name="codigo"
-                  type="text"
+                  className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
+                  name="imagen"
+                  type="file"
                   required={true}
-                  value={codigo}
-                  placeholder="generar codigo"
-                  onChange={this.changeHandler}
+                  defaultValue={imagen}
+                  onChange={this.onFileChange}
                 />
+              </div>
+              <div className="-mx-3 md:flex mb-6">
+                <div className="md:w-full px-3 mb-6 md:mb-0">
+                  <label className="block text-sm text-gray-600" htmlFor="codigo">
+                    Código:
+                </label>
+                  <input
+                    className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    id="codigo"
+                    name="codigo"
+                    type="text"
+                    required={true}
+                    value={codigo}
+                    placeholder="generar codigo"
+                    onChange={this.makeid}
+                  />
+                  <QRCode value={codigo}/>
                 </div>
                 <div className="md:w-full px-3 mb-6 md:mb-0 mt-5">
-                <button className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
+                  <button onClick={this.makeid} className=" mx-auto bg-white text-gray-800 font-bold rounded border-b-2 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-2 inline-flex items-center">
                     <i className="fas fa-qrcode mr-2" />
                     <span>Generar QR</span>
                   </button>
+                </div>
               </div>
-              </div>              
               <div className="mt-2">
                 <label className="block text-sm text-gray-600" htmlFor="estado">
                   Estado

@@ -14,6 +14,9 @@ module.exports=db.sequelize.define("scooters",{
     estado:{
       type:Sequelize.BOOLEAN
     },
+    imagen:{
+      type:Sequelize.STRING
+    },
     codigo:{
       type:Sequelize.STRING
     }

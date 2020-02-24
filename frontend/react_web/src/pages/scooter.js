@@ -44,7 +44,6 @@ class Scooter extends Component {
 
   render() {
     const { scooter } = this.state;
-    const image = require("../assets/scooter.jpg");
     return (
       <div>
         <Sidebar />
@@ -71,7 +70,7 @@ class Scooter extends Component {
               >
                 <div className="relative pt-10 px-10 flex items-center justify-center">
                   <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"></div>
-                  <img className="relative w-40" src={image} alt="" />
+                  <img className="block w-40 h-50" src={element.imagen}/>
                 </div>
                 <div className="relative text-white px-6 pb-6 mt-6">
                   <div className=" justify-between">
