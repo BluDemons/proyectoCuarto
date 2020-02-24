@@ -20,8 +20,9 @@ class Scooter extends Component {
   };
 
   componentDidMount = e => {
-    if (!this.state.scooter) {
-      console.log("No hay salas disponibles");
+    if (!this.scooter) {
+      return (
+        <h1 className="ml-64">"No hay dispositivos disponibles"</h1>);
     } else {
       axios
         .get(API)

@@ -38,15 +38,7 @@ const Sidebar = () => (
                             <span className="mx-1">Gestionar Dispositivos</span>
                             </span>
                         </Link>
-                    </li>
-                    <li className="items-center">
-                        <Link to="/horario">                
-                            <span className="cursor-pointer px-2 py-1 hover:bg-gray-800 hover:text-gray-300 rounded block mb-5">
-                            <i className="fas fa-chalkboard opacity-75 mr-2 text-sm"></i>                            
-                            <span className="mx-1">Hora y precio</span>
-                            </span>
-                        </Link>
-                    </li>                                                               
+                    </li>                                                            
                 </ul>                
             </div>
         </div>
