@@ -45,9 +45,10 @@ const postData = (req,res)=>{
 }
 
 const putData = (req, res) => {
-    const id = req.query.id
+    const id = req.query.id 
     const datos = req.body.datos
-    Scooter.update(datos, { where: { id }})
+    datos.forEach(element => {
+    Scooter.update(element, { where: { id }})
     .then( response => {
         return res.status(200).json({
             ok: true,
@@ -61,6 +62,7 @@ const putData = (req, res) => {
             mensaje: `Error del servidor: ${ error }` 
         })
     })
+})
 }
 
 const deleteData = (req, res) => {

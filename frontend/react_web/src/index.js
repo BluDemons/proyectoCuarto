@@ -14,6 +14,7 @@ import User from './pages/user';
 import Horario from './pages/horario';
 import AddHorario from './pages/addHorario';
 import SimpleMap from './pages/mapa';
+import EditScooter from './pages/editScooters';
 
 ReactDOM.render(
 <Router>
@@ -28,6 +29,7 @@ ReactDOM.render(
       <Route exact path="/horario" component={ Horario } />      
       <Route exact path="/gestion_horario" component={ AddHorario } /> 
       <Route exact path="/mapa" component={ SimpleMap } />      
+      <Route exact path="/editScooter" component={ EditScooter } />      
       <Route component={ Page404 } />
     </Switch>
 </Router>, document.getElementById('root'));

@@ -37,6 +37,14 @@ class Scooter extends Component {
     window.location.assign("http://localhost:3000/scooter");
   };
 
+  editarScooters=(s_id,s_imagen,s_descripcion,s_estado,s_codigo)=>{
+    localStorage.setItem('id',s_id);
+    localStorage.setItem('imagen',s_imagen);
+    localStorage.setItem('descripcion',s_descripcion);
+    localStorage.setItem('estado',s_estado);
+    localStorage.setItem('codigo',s_codigo);
+  }
+
   render() {
     const { scooter } = this.state;
     return (
@@ -79,8 +87,11 @@ class Scooter extends Component {
                       Código: {element.codigo}
                     </span>
                     <div className="flex justify-between">
-                      <Link to="/gestion_salas">
-                        <span className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">
+                      <Link to="/editScooter">
+                        <span 
+                        className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
+                        onClick={()=>this.editarScooters(element.id,element.imagen,element.descripcion,element.estado,element.codigo)}
+                        >
                           Editar
                         </span>
                       </Link>
