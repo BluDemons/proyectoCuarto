@@ -84,7 +84,7 @@ class EditScooter extends Component {
                 icon: 'success',
                 title: 'Actualizado correctamente',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 2000
             })
             .then( () => this.props.history.push("/scooter"));
           }

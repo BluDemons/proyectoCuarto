@@ -3,6 +3,8 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Sweet from 'sweetalert2';
+
 
 const API = "http://localhost:5000/thws/horario";
 
@@ -34,14 +36,22 @@ class AddHorario extends Component {
       this.post.datos.hora === "" ||
       this.post.datos.precio === ""
     ) {
-      alert("Complete todos los campos para continuar...");
-    } else {
+      Sweet.fire(
+        '',
+        'Complete todos los datos para continuar...!'
+    )
       axios
         .post(API, this.post)
         .then(response => {
           if (response.data.ok === true) {
-            alert("Agregado exitosamente");
-            window.location.assign("http://localhost:3000/horario");
+            Sweet.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Actualizado correctamente',
+              showConfirmButton: false,
+              timer: 1000
+          })
+            .then( () => this.props.history.push("/horario"));
           }
         })
         .catch(error => {

@@ -4,6 +4,7 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Sweet from 'sweetalert2';
 
 const API = "http://localhost:5000/thws/horario";
 
@@ -37,8 +38,8 @@ class Horario extends Component {
   deleteData = value => {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
-    });
-    window.location.assign("http://localhost:3000/horario");
+    })
+    .then( () => this.props.history.push("/horario"));
   };
 
   render() {

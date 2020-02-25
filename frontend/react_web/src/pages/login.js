@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Sweet from 'sweetalert2';
 
 const API_LOGIN = "http://localhost:5000/thws/login";
 
@@ -20,16 +21,29 @@ class Login extends Component {
   loginAccess = e => {
     e.preventDefault()
     if (this.state.correo === "" || this.state.clave === "") {
-      alert("Complete todos los campos para continuar...");
+      Sweet.fire(
+        '',
+        'Complete todos los datos para continuar...!'
+    )
     } else {
       axios.post(API_LOGIN, this.state)
       .then(response => {
         if ( response.data.mensaje === "found" ) {
-          window.location.assign("http://localhost:3000/home");
+          Sweet.fire({
+            position: 'center',
+            icon: 'success',
+            title: `Bievenido ${this.state.correo}`,
+            showConfirmButton: false,
+            timer: 4000
+        })
+        .then( () => this.props.history.push("/home"));
         }
       })
       .catch(error => {
-        alert("Datos Incorrectos")
+        Sweet.fire(
+          '',
+          'Datos Incorrectos'
+      )
       })
     }
   };

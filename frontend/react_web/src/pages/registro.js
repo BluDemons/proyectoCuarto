@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Sweet from 'sweetalert2';
 
 const API_URL = "http://localhost:5000/thws/persona";
 
@@ -42,14 +43,23 @@ class Registro extends Component {
       this.post.datos.correo === "" ||
       this.post.datos.clave === ""
     ) {
-      alert("Complete todos los campos para continuar...");
+      Sweet.fire(
+        '',
+        'Complete todos los datos para continuar...!'
+    )
     } else {
       axios
         .post(API_URL, this.post)
         .then(response => {
           if (response.data.ok === true) {
-            alert("Usuario registrado correctamente");
-            window.location.assign("http://localhost:3000/user");
+            Sweet.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Creado correctamente',
+              showConfirmButton: false,
+              timer: 2000
+          })
+          .then( () => this.props.history.push("/user"));
           }
         })
         .catch(error => {

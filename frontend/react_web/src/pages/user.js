@@ -4,6 +4,7 @@ import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Sweet from 'sweetalert2';
 
 const API = "http://localhost:5000/thws/persona";
 
@@ -47,7 +48,11 @@ class User extends Component {
   deleteData = value => {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
-    });
+    })
+    Sweet.fire(
+      '',
+      'Eliminado OK'
+  )
     window.location.assign("http://localhost:3000/user");
   };
 
