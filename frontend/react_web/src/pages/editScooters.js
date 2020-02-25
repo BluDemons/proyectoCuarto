@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import QRCode from "qrcode.react";
+import axios from 'axios';
+import QRCode from 'qrcode.react';
 import Sweet from 'sweetalert2';
 
 

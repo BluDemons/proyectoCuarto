@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import 'leaflet/dist/leaflet.css'
 
 import './styles/styles.css';
 import Login from './pages/login';
