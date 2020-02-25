@@ -62,7 +62,7 @@ class User extends Component {
             <h1 className="ml-12 text-center mr-10 text-5xl">
               Usuarios Registrados
             </h1>
-            <Link to="/gestion_usuario">
+            <Link to="/gestion_user">
               <button
                 type="button"
                 className="mr-8 shadow-md no-underline font-black rounded-full h-12 w-12 flex items-center justify-center bg-green-400 text-white text-sm border-blue btn-primary hover:text-white hover:bg-green-500 focus:outline-none active:shadow-none"
@@ -126,14 +126,16 @@ class User extends Component {
                     ))}
                   </td>
                   <td>
+                    
                     {persona.map(element => (
                       <p className="p-2 px-5" key={element.id}>
+                        <Link to="/editPersona">
                         <button
-                          onClick={() => this.handleOpenModal(element.id)}
                           className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                         >
                           Editar
                         </button>
+                        </Link>
                       </p>
                     ))}
                   </td>

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/thws/persona";
 
-class Registro extends Component {
+class EditPersona extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +72,7 @@ class Registro extends Component {
         </div>
         <form onSubmit={this.registroUser}>
           <div className="sm:mr12 sm:ml-12 md:ml-64 md:mr-64 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-24">
-            <h1 className="font-hairline text-center text-2xl">Regístrate!!</h1>
+            <h1 className="font-hairline text-center text-2xl">Editar !!</h1>
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-full px-3 mb-6 md:mb-0">
                 <label
@@ -186,4 +186,4 @@ class Registro extends Component {
   }
 }
 
-export default Registro;
+export default EditPersona;
