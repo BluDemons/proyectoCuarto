@@ -4,7 +4,7 @@ import Header from "../components/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import QRCode from "qrcode.react";
-// import Sweet from 'sweetalert2';
+import Sweet from 'sweetalert2';
 
 
 const API = "http://localhost:5000/thws/scooter";
@@ -52,23 +52,53 @@ class EditScooter extends Component {
        this.setState({codigo:result})
     }
  }
- updateData = (id) => {
-      axios.put(`${API}?id=${id}`, {
-            descripcion: this.state.descripcion,
-            imagen: this.state.imagen,
-            estado: this.state.estado,
-            codigo: this.state.codigo
+ updateData = value => {
+
+    this.update = {
+      datos: [{
+        id: this.state.id,
+        descripcion: this.state.descripcion,
+        estado: this.state.estado,
+        codigo: this.state.codigo,
+        imagen: this.state.imagen,
+      }]
+    };
+
+    if (this.update.datos[0].id === "" ||
+      this.update.datos[0].descripcion === "" ||
+      this.update.datos[0].estado === "" ||
+      this.update.datos[0].codigo === "" ||
+      this.update.datos[0].imagen === ""
+    ) {
+        Sweet.fire(
+            '',
+            'Complete todos los datos para continuar...!'
+        )
+    } else {
+      axios
+        .put(`${API}?id=${value}`, this.update,{
+            data: { id: value }
         })
         .then(response => {
-            this.setState({ scooter: response.data.datos });
+          if (response.data.ok === true) {
+            Sweet.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Actualizado correctamente',
+                showConfirmButton: false,
+                timer: 1000
+            })
+            .then( () => this.props.history.push("/scooter"));
+          }
         })
         .catch(error => {
-          console.log(error);
+          alert(error);
         });
+    }
   };
 
   render() {
-    const { descripcion, estado, codigo, imagen,id } = this.state;
+    const { descripcion, estado, codigo, imagen, } = this.state;
     return (
       <div>
         <Sidebar />
@@ -97,23 +127,6 @@ class EditScooter extends Component {
                   required={true}
                   value={descripcion}
                   placeholder="Añade una descripción"
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div className="">
-                <label
-                  className="block text-sm text-gray-600"
-                  htmlFor="descripcion"
-                >
-                  id
-                </label>
-                <input
-                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                  id="id"
-                  name="id"
-                  type="text"
-                  required={true}
-                  value={id}
                   onChange={this.changeHandler}
                 />
               </div>

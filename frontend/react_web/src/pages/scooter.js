@@ -43,6 +43,7 @@ class Scooter extends Component {
     localStorage.setItem('descripcion',s_descripcion);
     localStorage.setItem('estado',s_estado);
     localStorage.setItem('codigo',s_codigo);
+    this.props.history.push('/editScooter')
   }
 
   render() {

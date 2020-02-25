@@ -61,10 +61,10 @@ class AddScooter extends Component {
     };
 
     if (
-      this.post.datos.descripcion === "" ||
-      this.post.datos.estado === "" ||
-      this.post.datos.codigo === "" ||
-      this.post.datos.imagen === ""
+      this.post.datos[0].descripcion === "" ||
+      this.post.datos[0].estado === "" ||
+      this.post.datos[0].codigo === "" ||
+      this.post.datos[0].imagen === ""
     ) {
       alert("Complete todos los campos para continuar...");
     } else {
