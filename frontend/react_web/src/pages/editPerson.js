@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Sweet from 'sweetalert2';
 
-const API_URL = "http://localhost:5000/thws/persona";
+const API = "http://localhost:5000/thws/persona";
 
 class EditPersona extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nombres: "",
-      apellidos: "",
-      direccion: "",
-      correo: "",
-      clave: "",
-      idTipoPersona: 2
+    id:localStorage.getItem('id'),
+    nombres: localStorage.getItem('nombres'),
+    apellidos: localStorage.getItem('apellidos'),
+    direccion: localStorage.getItem('direccion'),
+    correo: localStorage.getItem('correo'),
+    clave: localStorage.getItem('clave'),
     };
   }
 
@@ -22,52 +22,51 @@ class EditPersona extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  registroUser = e => {
+  updateData = e => {
     e.preventDefault();
-    this.post = {
-      datos: {
-        nombres: this.state.nombres,
-        apellidos: this.state.apellidos,
-        direccion: this.state.direccion,
-        correo: this.state.correo,
-        clave: this.state.clave,
-        idTipoPersona: this.state.idTipoPersona
+      this.update = {
+        datos: [{
+          id: this.state.id,
+          nombres: this.state.nombres,
+          apellidos: this.state.apellidos,
+          direccion: this.state.direccion,
+          correo: this.state.correo,
+          clave: this.state.clave,
+        }]
+      };
+  
+      if (this.update.datos[0].id === "" ||
+        this.update.datos[0].nombres === "" ||
+        this.update.datos[0].apellidos === "" ||
+        this.update.datos[0].direccion === "" ||
+        this.update.datos[0].correo === "" ||
+        this.update.datos[0].clave === ""
+      ) {
+          Sweet.fire(
+              '',
+              'Complete todos los datos para continuar...!'
+          )
+      } else {
+        axios
+          .put(`${API}?id=`+ this.state.id, this.update)
+          .then(response => {
+            if (response.data.ok === true) {
+              Sweet.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Actualizado correctamente',
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+              .then( () => this.props.history.push("/user"));
+            }
+          })
+          .catch(error => {
+            alert(error);
+          });
       }
     };
-
-    console.log(this.post.datos);
-    if (
-      this.post.datos.nombres === "" ||
-      this.post.datos.apellidos === "" ||
-      this.post.datos.direccion === "" ||
-      this.post.datos.correo === "" ||
-      this.post.datos.clave === ""
-    ) {
-
-        Sweet.fire(
-            '',
-            'Complete todos los datos para continuar...!'
-        )   
-     } else {
-      axios
-        .post(API_URL, this.post)
-        .then(response => {
-          if (response.data.ok === true) {
-            Sweet.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Registrado correctamente',
-                showConfirmButton: false,
-                timer: 2000
-            })
-            .then( () => this.props.history.push("/user"));
-          }
-        })
-        .catch(error => {
-          alert("Datos Incorrectos");
-        });
-    }
-  };
+  
 
   render() {
     const { nombres, apellidos, direccion, correo, clave } = this.state;
@@ -81,7 +80,7 @@ class EditPersona extends Component {
             </button>
           </Link>
         </div>
-        <form onSubmit={this.registroUser}>
+        <form onSubmit={this.updateData}>
           <div className="sm:mr12 sm:ml-12 md:ml-64 md:mr-64 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-24">
             <h1 className="font-hairline text-center text-2xl">Editar Administrdor THWS!!</h1>
             <div className="-mx-3 md:flex mb-6">
@@ -168,7 +167,7 @@ class EditPersona extends Component {
                 <input
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
                   id="clave"
-                  type="password"
+                  type="text"
                   name="clave"
                   value={clave}
                   required={true}

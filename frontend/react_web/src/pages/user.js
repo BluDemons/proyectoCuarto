@@ -45,6 +45,16 @@ class User extends Component {
     }
   };
 
+  editarUsers=(u_id,u_nombres,u_apellidos,u_direccion,u_correo,u_clve)=>{
+    localStorage.setItem('id',u_id);
+    localStorage.setItem('nombres',u_nombres);
+    localStorage.setItem('apellidos',u_apellidos);
+    localStorage.setItem('direccion',u_direccion);
+    localStorage.setItem('correo',u_correo);
+    localStorage.setItem('clave',u_clve);
+    this.props.history.push('/editPersona')
+  }
+
   deleteData = value => {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
@@ -136,6 +146,7 @@ class User extends Component {
                       <p className="p-2 px-5" key={element.id}>
                         <Link to="/editPersona">
                         <button
+                        onClick={()=>this.editarUsers(element.id,element.nombres,element.apellidos,element.direccion,element.correo,element.clave)}
                           className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                         >
                           Editar
