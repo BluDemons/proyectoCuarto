@@ -45,9 +45,9 @@ const postData = (req,res)=>{
 }
 
 const putData = (req, res) => {
-    const id = req.query.id
+    const id = req.query.id 
     const datos = req.body.datos
-    datos.array.forEach(element => {
+    datos.forEach(element => {
     Horarios.update(element, { where: { id }})
     .then( response => {
         return res.status(200).json({
@@ -62,7 +62,7 @@ const putData = (req, res) => {
             mensaje: `Error del servidor: ${ error }` 
         })
     })
-});
+})
 }
 
 const deleteData = (req, res) => {

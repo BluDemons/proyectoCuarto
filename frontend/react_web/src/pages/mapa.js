@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import L from 'leaflet';
+// import L from 'leaflet';
 import '../styles/leaflet.css'
-import {Map,TileLayer,Marker,Popup} from 'react-leaflet'
+import {Map,TileLayer} from 'react-leaflet'
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 
-var MyIcon = L.icon({
-
-});
 class SimpleMap extends Component {
 
   state={

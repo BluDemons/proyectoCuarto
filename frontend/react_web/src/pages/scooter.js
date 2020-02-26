@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import axios from "axios";
+import Sweet from 'sweetalert2';
 import { Link } from "react-router-dom";
 
 const API = "http://localhost:5000/thws/scooter";
@@ -33,8 +34,12 @@ class Scooter extends Component {
   deleteData = value => {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
-    });
-    window.location.assign("http://localhost:3000/scooter");
+    })
+    Sweet.fire(
+      '',
+      'Eliminado OK'
+  )
+  window.location.assign("http://localhost:3000/scooter")
   };
 
   editarScooters=(s_id,s_imagen,s_descripcion,s_estado,s_codigo)=>{

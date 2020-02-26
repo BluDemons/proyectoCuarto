@@ -4,6 +4,7 @@ import Header from "../components/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import QRCode from "qrcode.react";
+import Sweet from 'sweetalert2';
 
 const API = "http://localhost:5000/thws/scooter";
 
@@ -66,14 +67,23 @@ class AddScooter extends Component {
       this.post.datos.codigo === "" ||
       this.post.datos.imagen === ""
     ) {
-      alert("Complete todos los campos para continuar...");
+      Sweet.fire(
+        '',
+        'Complete todos los datos para continuar...!'
+    )
     } else {
       axios
         .post(API, this.post)
         .then(response => {
           if (response.data.ok === true) {
-            alert("Agregado exitosamente");
-            window.location.assign("http://localhost:3000/scooter");
+            Sweet.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Creado correctamente',
+              showConfirmButton: false,
+              timer: 2000
+          })
+          .then( () => this.props.history.push("/scooter"));
           }
         })
         .catch(error => {

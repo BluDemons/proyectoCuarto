@@ -52,8 +52,8 @@ class EditScooter extends Component {
        this.setState({codigo:result})
     }
  }
- updateData = value => {
-
+ updateData = e => {
+  e.preventDefault();
     this.update = {
       datos: [{
         id: this.state.id,
@@ -76,9 +76,7 @@ class EditScooter extends Component {
         )
     } else {
       axios
-        .put(`${API}?id=${value}`, this.update,{
-            data: { id: value }
-        })
+        .put(`${API}?id=`+ this.state.id, this.update)
         .then(response => {
           if (response.data.ok === true) {
             Sweet.fire({
@@ -86,7 +84,7 @@ class EditScooter extends Component {
                 icon: 'success',
                 title: 'Actualizado correctamente',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 2000
             })
             .then( () => this.props.history.push("/scooter"));
           }
