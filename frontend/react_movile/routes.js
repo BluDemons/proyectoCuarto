@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NativeRouter, Switch, Route } from "react-router-native";
 
-import Login from "./pages/Login";
-import virtualLibrary from './pages/virtualLibrary';
-import Reserve from './pages/reserve';
-import Detalle from './pages/detalle_reserva';
+import Login from "./src/pages/Login";
+import Reserve from './src/pages/reserve';
+import Detalle from './src/pages/detalle_reserva';
+import RegistroScreen from './src/pages/registro';
+import UserScreen from './src/pages/perfil';
+import Home from './src/pages/home';
+import ScooterScreen from './src/pages/scooters';
 
 
 export default class App extends Component {
@@ -15,9 +18,12 @@ export default class App extends Component {
         <View style={styles.container}>
           <Switch>
             <Route exact path="/" component={ Login } />
-            <Route exact path="/library" component={ virtualLibrary } />
+            <Route exact path="/home" component={ Home } /> 
             <Route path="/reserve" component={ Reserve } /> 
             <Route path="/detalle" component={ Detalle } /> 
+            <Route path="/registro" component={ RegistroScreen } /> 
+            <Route path="/perfil" component={ UserScreen } /> 
+            <Route path="/scooters" component={ ScooterScreen } /> 
           </Switch>
         </View>
       </NativeRouter>

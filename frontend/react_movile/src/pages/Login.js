@@ -1,24 +1,26 @@
 import * as React from 'react';
-import { Text, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
+import { Text, TextInput, View, StyleSheet, AsyncStorage,TouchableOpacity, ImageBackground } from 'react-native';
 import { Icon,Button } from 'react-native-elements';
+import {Link} from 'react-router-native';
 import axios from 'axios';
+import API from '../components/API';
 
-const API = 'http://192.168.0.112:5000/server/login'
+const imgbg = require('../assets/dark.jpg');
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       correo: '',
-      clave: '',
+      clave: ''
     }
   }
 
-  correo_Handler = text => {
+  usuario_correo_Handler = text => {
     this.setState({ correo: text })
   }
 
-  clave_Handler = text => {
+  usuario_clave_Handler = text => {
     this.setState({ clave: text })
   }
 
@@ -30,14 +32,15 @@ export default class LoginScreen extends React.Component {
     if (this.state.correo === "" || this.state.clave === "") {
       alert("Complete todos los datos para continuar...");
     } else {
-      axios.post(API, this.state)
+      axios.post(API+'login', this.state)
       .then(response => {
         if ( response.data.mensaje === "found" ) {
-          return this.props.history.push("library");
+          AsyncStorage.setItem('id_usuario', this.state.clave.toString());
+          return this.props.history.push("reserve");
         }
       })
       .catch(error => {
-        alert("Datos Incorrectos")
+        alert(error)
       })
     }
   }
@@ -45,27 +48,43 @@ export default class LoginScreen extends React.Component {
   render() {
     const { correo, clave } = this.state
     return (
-      <View style={styles.container}>
+      <ImageBackground source={imgbg} style={{width: '100%', height: '100%'}}>
+      <View style={styles.container} >
 
-        <Text style={styles.text}>Correo Electrónico</Text>
+        <Text style={styles.text}>Correo</Text>
         <View style={styles.containerEmail}>
-          <Icon type="font-awesome" name="user" color="gray" containerStyle={styles.icon}/>
-          <TextInput placeholder="@gmail.com" placeholderTextColor="gray" name="correo" value={ correo } onChangeText={ this.correo_Handler }
-          style={styles.textInput}/> 
+          <Icon type="font-awesome" name="user" color="black" containerStyle={styles.icon}/>
+          <TextInput 
+            placeholder="@gmail.com" 
+            placeholderTextColor="gray" 
+            name="correo" 
+            value={ correo } 
+            onChangeText={ this.usuario_correo_Handler }
+            style={styles.textInput} /> 
         </View>
 
         <Text style={styles.text}>Contraseña</Text>
         <View style={styles.containerPassword}>
-          <Icon type="entypo" name="key" color="gray" containerStyle={styles.icon}/>
-          <TextInput placeholder="*******" placeholderTextColor="gray" name="clave" value={ clave } onChangeText={ this.clave_Handler }
-          style={styles.textInput} secureTextEntry={true}/> 
+          <Icon type="entypo" name="key" color="black" containerStyle={styles.icon}/>
+          <TextInput 
+            placeholder="*******" 
+            placeholderTextColor="gray" 
+            name="clave" 
+            value={ clave } 
+            onChangeText={ this.usuario_clave_Handler }
+            style={styles.textInput} secureTextEntry={true}/> 
         </View>
+        <TouchableOpacity  style={styles.helpLink}>
+        <Link to='/registro'>
+            <Text style={styles.helpLinkText}>¿Nuevo usuario? ¡Por favor regístrate!</Text>
+        </Link>
+          </TouchableOpacity>
 
         <View style={styles.containerIngresar}>
-            <Button title="Ingresar" onPress={ this.login } />
+            <Button  title="Ingresar" onPress={ this.login } />
         </View>
-
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -78,10 +97,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent:'center',
     alignItems: 'stretch',
-    backgroundColor: '#4fd1c5',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    textAlign:'center',
+    fontSize: 14,
+    color: '#2e78b7',
   },
   containerIngresar:{
-    height: 60,
+    height: '25%',
     marginLeft:'25%',
     marginRight:'25%',
     paddingTop:'10%',
@@ -125,7 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 100,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
