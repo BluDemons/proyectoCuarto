@@ -2,23 +2,35 @@ import React, { Component } from "react";
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
-// import axios from 'axios';
+import axios from 'axios';
 
-// const API = "http://10.143.90.222:5000/cine/movie";
+ const API = "http://localhost:5000/thws/estadistica";
 
 
-// Resolves charts dependancy
+
 charts(FusionCharts);
 
 export default class Grafica extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        peliculas: [],
+        estadistica: [],
     };
 }
+
+componentDidMount = e => {
+  axios
+    .get(API)
+    .then(response => {
+      this.setState({ estadistica: response.data.datos });
+      console.log(response.data.datos)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
   render() {
-    // const {peliculas} = this.state;
+    const {estadistica} = this.state;
     const datos = {
       chart: {
         caption: "Porcentaje de Ventas",
@@ -33,14 +45,7 @@ export default class Grafica extends Component {
         centerlabel: "# Users: $value",
         theme: "candy"
       },
-      data: [{
-        label:'Lolipop',
-        value:'5300'
-      },{
-        label:'Candy',
-        value:'18000'
-      }      
-      ]
+      data: this.state.estadistica
     };
     const chartConfigs = {
       type: 'pie2d',

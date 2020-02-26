@@ -21,14 +21,15 @@ class Scooter extends Component {
   };
 
   componentDidMount = e => {
-      axios
-        .get(API)
-        .then(response => {
-          this.setState({ scooter: response.data.datos });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    axios
+      .get(API)
+      .then(response => {
+        this.setState({ scooter: response.data.datos });
+        console.log(response.data.datos)
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   deleteData = value => {
@@ -38,16 +39,16 @@ class Scooter extends Component {
     Sweet.fire(
       '',
       'Eliminado OK'
-  )
-  window.location.assign("http://localhost:3000/scooter")
+    )
+    window.location.assign("http://localhost:3000/scooter")
   };
 
-  editarScooters=(s_id,s_imagen,s_descripcion,s_estado,s_codigo)=>{
-    localStorage.setItem('id',s_id);
-    localStorage.setItem('imagen',s_imagen);
-    localStorage.setItem('descripcion',s_descripcion);
-    localStorage.setItem('estado',s_estado);
-    localStorage.setItem('codigo',s_codigo);
+  editarScooters = (s_id, s_imagen, s_descripcion, s_estado, s_codigo) => {
+    localStorage.setItem('id', s_id);
+    localStorage.setItem('imagen', s_imagen);
+    localStorage.setItem('descripcion', s_descripcion);
+    localStorage.setItem('estado', s_estado);
+    localStorage.setItem('codigo', s_codigo);
     this.props.history.push('/editScooter')
   }
 
@@ -63,10 +64,10 @@ class Scooter extends Component {
               Scooters
             </h1>
             <Link to="/gestion_scooter">
-            <button
-              type="button"
-              className="mr-8 shadow-md no-underline font-black rounded-full h-12 w-12 flex items-center justify-center bg-green-400 text-white border-blue btn-primary hover:text-white hover:bg-green-600 focus:outline-none active:shadow-none"
-            >
+              <button
+                type="button"
+                className="mr-8 shadow-md no-underline font-black rounded-full h-12 w-12 flex items-center justify-center bg-green-400 text-white border-blue btn-primary hover:text-white hover:bg-green-600 focus:outline-none active:shadow-none"
+              >
                 Add
             </button>
             </Link>
@@ -79,24 +80,22 @@ class Scooter extends Component {
               >
                 <div className="relative pt-10 px-10 flex items-center justify-center">
                   <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"></div>
-                  <img className="block w-40 h-50" src={element.imagen}/>
+                  <img className="block w-40 h-50" src={element.imagen} />
                 </div>
                 <div className="relative text-white px-6 pb-6 mt-6">
                   <div className=" justify-between">
                     <span className="block font-semibold text-sm">
-                    Descripción: {element.descripcion}
+                      Descripción: {element.descripcion}
                     </span>
-                    <span className="block font-semibold text-sm">
-                      Estado: {element.estado}
-                    </span>
+                    <input className="block font-semibold bg-teal-500 text-sm" value={element.estado}/>
                     <span className="block font-semibold text-sm">
                       Código: {element.codigo}
                     </span>
                     <div className="flex justify-between">
                       <Link to="/editScooter">
-                        <span 
-                        className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
-                        onClick={()=>this.editarScooters(element.id,element.imagen,element.descripcion,element.estado,element.codigo)}
+                        <span
+                          className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
+                          onClick={() => this.editarScooters(element.id, element.imagen, element.descripcion, element.estado, element.codigo)}
                         >
                           Editar
                         </span>
