@@ -8,12 +8,13 @@ import Sweet from 'sweetalert2';
 
 const API = "http://localhost:5000/thws/horario";
 
-class AddHorario extends Component {
+class EditHorario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hora: "",
-      precio: "",
+      id:localStorage.getItem('id'),
+      precio: localStorage.getItem('precio'),
+      hora: localStorage.getItem('hora'),
     };
   }
 
@@ -21,43 +22,45 @@ class AddHorario extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  saveData = e => {
+  updateData = e => {
     e.preventDefault();
-    this.post = {
-      datos: {
-        hora: this.state.hora,
-        precio: this.state.precio
-      }
-    };
-
-    if (
-      this.post.datos.hora === "" ||
-      this.post.datos.precio === ""
-    ) {
-      Sweet.fire(
-        '',
-        'Complete todos los datos para continuar...!'
-    )
-       } else{
-      axios
-        .post(API, this.post)
-        .then(response => {
-          if (response.data.ok === true) {
-            Sweet.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Creado correctamente',
-              showConfirmButton: false,
-              timer: 1000
+      this.update = {
+        datos: [{
+          id: this.state.id,
+          precio: this.state.precio,
+          hora: this.state.hora,
+        }]
+      };
+  
+      if (this.update.datos[0].id === "" ||
+        this.update.datos[0].precio === "" ||
+        this.update.datos[0].hora === "" 
+      ) {
+          Sweet.fire(
+              '',
+              'Complete todos los datos para continuar...!'
+          )
+      } else {
+        axios
+          .put(`${API}?id=`+ this.state.id, this.update)
+          .then(response => {
+            if (response.data.ok === true) {
+              Sweet.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Actualizado correctamente',
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+              .then( () => this.props.history.push("/horario"));
+            }
           })
-            .then( () => this.props.history.push("/horario"));
-          }
-        })
-        .catch(error => {
-          alert(error);
-        });
+          .catch(error => {
+            alert(error);
+          });
       }
     };
+  
 
   render() {
     const { hora, precio } = this.state;
@@ -69,10 +72,10 @@ class AddHorario extends Component {
           <div className=" md:left-0 leading-loose">
             <form
               className="md:mr-0 m-4 p-10 bg-white rounded shadow-xl"
-              onSubmit={this.saveData}
+              onSubmit={this.updateData}
             >
               <p className="text-gray-800 font-medium">
-                Crear nuevo Horario
+                Editar Horario
               </p>              
               <div className="-mx-3 md:flex mb-6">
               <div className="md:w-full px-3 mb-6 md:mb-0">
@@ -129,4 +132,4 @@ class AddHorario extends Component {
   }
 }
 
-export default AddHorario;
+export default EditHorario;

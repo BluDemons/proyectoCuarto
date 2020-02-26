@@ -39,8 +39,19 @@ class Horario extends Component {
     axios.delete(`${API}?id=${value}`, {
       data: { id: value }
     })
-    .then( () => this.props.history.push("/horario"));
+    Sweet.fire(
+      '',
+      'Eliminado OK'
+  )
+  window.location.assign("http://localhost:3000/horario");
   };
+
+  editarHorario=(h_id,h_precio,h_hora)=>{
+    localStorage.setItem('id',h_id);
+    localStorage.setItem('precio',h_precio);
+    localStorage.setItem('hora',h_hora);
+    this.props.history.push('/editHorario')
+  }
 
   render() {
     const { horario } = this.state;
@@ -81,7 +92,15 @@ class Horario extends Component {
                     <span className="block font-semibold text-sm">
                     Precio: {element.precio}
                     </span>
-                    <div className=" top-0 ml-32 justify-between">
+                    <div className="flex justify-between">
+                      <Link to="/editHorario">
+                        <span 
+                        className="justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
+                        onClick={()=>this.editarHorario(element.id,element.precio,element.hora)}
+                        >
+                          Editar
+                        </span>
+                      </Link>
                       <span
                         className="cursor-pointer justify-between bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center"
                         onClick={() => this.deleteData(element.id)}
