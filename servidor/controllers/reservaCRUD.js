@@ -1,5 +1,5 @@
 const Reserva = require('../models/detalle_reserva');
-
+const db = require("../database/db");
 const getData = (req, res) => {
     const { query } = req;
     Reserva.findAll({ query })
@@ -84,9 +84,29 @@ const deleteData = (req, res) => {
         })
 }
 
+const estadistica = (req, res) => {
+    db.sequelize.query(`select sum(precio_total) as value, scooters.descripcion as label from detalle_reservas 
+    join scooters on scooters.id=detalle_reservas.idscooter group by scooters.descripcion;
+    ;`, { type: db.sequelize.QueryTypes.SELECT})
+    .then(response => {
+        return res.status(200).json({
+                ok: true,
+                datos: response
+            })
+        .catch((error) => {
+            return res.status(500).json({
+                ok: false,
+                datos: null,
+                mensaje: `Error del servidor: ${ error }`
+            })
+        })
+    })
+}
+
 module.exports = {
     getData,
     postData,
     putData,
-    deleteData
+    deleteData,
+    estadistica
 }

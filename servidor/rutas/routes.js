@@ -21,6 +21,7 @@ router.get('/reserva', reserva.getData);
 router.post('/reserva', reserva.postData);
 router.put('/reserva', reserva.putData);
 router.delete('/reserva', reserva.deleteData);
+router.get('/estadistica', reserva.estadistica);
 
 router.get('/persona', persona.getData);
 router.post('/persona', persona.postData);

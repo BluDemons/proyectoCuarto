@@ -173,9 +173,11 @@ class EditScooter extends Component {
                   className="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded"
                   name="estado"
                   onChange={this.changeHandler}
+                  value={estado}
                 >
-                  <option value={estado}>Desocupado</option>
-                  <option >Ocupado</option>
+                  <option>Seleccionar</option>
+                  <option value='1'>Desocupado</option>
+                  <option value='0'>Ocupado</option>
                 </select>
               </div>
               <div className="mt-4 flex justify-between">

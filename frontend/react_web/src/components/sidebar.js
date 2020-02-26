@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Sidebar = () => (
     <div className="relative">
         <div className=" mt-0 fixed shadow-xl bg-white flex flex-wrap  items-center justify-between sm:hidden md:w-64 z-10 py-4 px-6 md:inline-fixed md:block md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between mx-auto">
-            <div className="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0">
-                <span className="font-semibold text-xl tracking-tight text-black">Sistema THWS</span>
+            <div className="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-xs font-bold p-4 px-0">
+                <span className="font-semibold text-sm tracking-tight text-black">Travel Healthy with Scooter</span>
             </div>
             <div className="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded">
                 <ul className="md:flex-col md:min-w-full flex flex-col list-none">
@@ -53,14 +53,14 @@ const Sidebar = () => (
                             </span>
                         </Link>
                     </li>
-                    <li className="items-center">
+                    {/* <li className="items-center">
                         <Link to="/horario">
                             <span className="cursor-pointer px-2 py-1 hover:bg-gray-800 hover:text-gray-300 rounded block mb-5">
                                 <i className="fas fa-business-time opacity-75 mr-2 text-sm"></i>
                                 <span className="mx-1">Gestionar Horarios</span>
                             </span>
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>
