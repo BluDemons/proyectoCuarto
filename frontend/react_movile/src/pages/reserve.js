@@ -27,25 +27,37 @@ export default class Reserva extends Component {
       scooter:[],
       horario:[],
       open: false,
-      id_estudiante: "",
       descripcion: "",
       precio_total: "",
-      idpersona: "",
+      idpersona: '',
+      nombre_persona:'',
       idscooter: "",
       idhorario: ""
     };
   }
 
   componentDidMount() {
-    axios
-      .get(API + "scooter")
-      .then(response => {
-        this.setState({ scooter: response.data.datos });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.asyncstorageGet()
+  }
+  
+  getData = () => {
+    axios.get(API+"scooters_disponibles?estado=1")
+    .then( response => {
+      this.setState({ scooter: response.data.datos })
+    })
+    .catch(error => {
+      console.log(error)
+    })
 
+    axios.get(`${API}getlogin?id=${ this.state.idpersona }`)
+    alert(idpersona)
+    .then( response => {
+      this.setState({ nombre_persona: response.data.datos.nombres + " " + response.data.datos.apellidos })
+      AsyncStorage.setItem('', this.state.nombre_persona.toString());
+    })
+    .catch(error => {
+      console.log(error)
+    })
     axios
       .get(API + "horario")
       .then(response => {
@@ -54,7 +66,19 @@ export default class Reserva extends Component {
       .catch(error => {
         console.log(error);
       });
+
   }
+
+  asyncstorageGet = async () => {
+    try {
+      const id = await AsyncStorage.getItem('idpersona')
+      this.setState({ idpersona: id})
+      this.getData()
+    } catch (e) {
+      alert(e)
+    }
+  }
+
   descripcion_Handler = text => {
     this.setState({ descripcion: text });
   };
@@ -229,7 +253,7 @@ export default class Reserva extends Component {
                 <Text style={styles.text}>descripcion</Text>
                 <View style={styles.containerEmail}>                  
                   <TextInput
-                    placeholder="nombres"
+                    placeholder="descripcion"
                     placeholderTextColor="white"
                     name="descripcion"
                     value={descripcion}
@@ -240,10 +264,12 @@ export default class Reserva extends Component {
                 <Text style={styles.text}>Precio</Text>
                 <View style={styles.containerEmail}>
                   <TextInput
-                    placeholder="$$"
+                    placeholder="$00.00"
                     placeholderTextColor="white"
                     name="precio_total"
-                    value={precio_total}
+                    defaultValue={idhorario}
+                    autoCompleteType={"cc-number"}
+                    keyboardType={"numeric"}
                     onChangeText={this.precio_Handler}
                     style={styles.textInput}
                   />
@@ -251,7 +277,7 @@ export default class Reserva extends Component {
                 <Text style={styles.text}>Usuario</Text>
                 <View style={styles.containerEmail}>
                   <TextInput
-                    placeholder="García Moreno S4-35 y Ambato"
+                    placeholder="usuario"
                     placeholderTextColor="white"
                     name="idpersona"
                     value={idpersona}

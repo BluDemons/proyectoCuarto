@@ -84,9 +84,28 @@ const deleteData = (req, res) => {
     })
 }
 
+const getScooter = (req,res)=>{
+    const {estado}=req.query;
+    Scooter.findAll({where:{estado}})
+    .then(response =>{
+        return res.status(200).json({
+            ok:true,
+            datos:response
+        })
+    })
+    .catch( error => {
+        return res.status(500).json({
+            ok:false,
+            datos:null,
+            mensaje:`Error del servidor: ${error}`
+        })
+    });
+}
+
 module.exports ={
     getData,
     postData,
     putData,
-    deleteData
+    deleteData,
+    getScooter
 }

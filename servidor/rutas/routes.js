@@ -23,11 +23,13 @@ router.put('/reserva', reserva.putData);
 router.delete('/reserva', reserva.deleteData);
 
 router.get('/persona', persona.getData);
+router.get('/getlogin', persona.getlogin);
 router.post('/persona', persona.postData);
 router.put('/persona', persona.putData);
 router.delete('/persona', persona.deleteData);
 
 router.get('/scooter', scooter.getData);
+router.get('/scooters_disponibles', scooter.getScooter);
 router.post('/scooter', scooter.postData);
 router.put('/scooter', scooter.putData);
 router.delete('/scooter', scooter.deleteData);
