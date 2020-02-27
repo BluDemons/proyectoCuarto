@@ -273,6 +273,7 @@ export default class Reserva extends Component {
                     value={descripcion}
                     onChangeText={this.descripcion_Handler}
                     style={styles.textInput}
+                    color="white"
                   />
                 </View>
                 <Text style={styles.text}>Precio</Text>
@@ -285,6 +286,7 @@ export default class Reserva extends Component {
                     autoCompleteType={"cc-number"}
                     keyboardType={"numbers-and-punctuation"}
                     onChangeText={this.precio_Handler}
+                    color="white"
                     style={styles.textInput}
                   />
                 </View>
@@ -296,6 +298,7 @@ export default class Reserva extends Component {
                     name="idpersona"
                     value={idpersona}
                     onChangeText={this.persona_Handler}
+                    color="white"
                     style={styles.textInput}
                   />
                 </View>               
@@ -311,18 +314,18 @@ export default class Reserva extends Component {
                   <Picker.Item key={item.id} label={item.hora+' '+item.precio} value={item.id}>{" "}{item.precio}{" "}</Picker.Item>
                   ))} 
                 </Picker>
-                <Picker
-                  selectedValue={this.state.idscooter}
-                  style={styles.picker}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ idscooter: itemValue })
-                  }
-                >
-                  <Picker.Item label="Seleccione un dispositivo" />
-                  {scooter.map(item=>(
-                  <Picker.Item key={item.id} label={item.descripcion} value={item.id}>{" "}{item.codigo}{" "}</Picker.Item>
-                  ))} 
-                </Picker>
+                <Text style={styles.text}>Dispositivo</Text>
+                <View style={styles.containerEmail}>
+                  <TextInput
+                    placeholder="usuario"
+                    placeholderTextColor="white"
+                    name="idpersona"
+                    value={idpersona}
+                    onChangeText={this.persona_Handler}
+                    color="white"
+                    style={styles.textInput}
+                  />
+                </View>  
                 <View style={styles.containerIngresar}>
                   <Button title="Reservar" onPress={this.registroUser} />
                 </View>
@@ -380,7 +383,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: "#008080",
     flex: 5,
-    color: "black",
+    textDecorationColor: "white",
     paddingLeft: "15%",
     opacity:0.5
   },

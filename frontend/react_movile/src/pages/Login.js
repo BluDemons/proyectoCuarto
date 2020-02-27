@@ -37,7 +37,7 @@ export default class LoginScreen extends React.Component {
       .then(response => {
         if ( response.data.mensaje === "found" ) {
           AsyncStorage.setItem('idpersona', this.state.correo.toString());
-          return this.props.history.push("reserve");
+          return this.props.history.push("/scooters");
         }
       })
       .catch(error => {
