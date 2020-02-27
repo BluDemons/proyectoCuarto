@@ -17,6 +17,7 @@ import { Link } from "react-router-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
+import Escanear from '../components/scaner';
 import API from "../components/API";
 
 export default class AddPerfil extends Component {
@@ -242,74 +243,8 @@ export default class AddPerfil extends Component {
           </View>
 
           <View style={styles.body}>
-            <Text style={styles.header1}>Actualizar Perfil</Text>
-            <ScrollView alwaysBounceVertical style={styles.containerScrool}>
-              <View style={styles.container1}>
-                <Text style={styles.text}>Nombres</Text>
-                <View style={styles.containerEmail}>
-                  <TextInput
-                    placeholder="nombres"
-                    placeholderTextColor="white"
-                    name="nombres"
-                    value={nombres}
-                    onChangeText={this.usuario_nombre_Handler}
-                    style={styles.textInput}
-                  />
-                </View>
-                <Text style={styles.text}>Apellidos</Text>
-                <View style={styles.containerEmail}>
-                  <TextInput
-                    placeholder="apellidos"
-                    placeholderTextColor="white"
-                    name="apellidos"
-                    value={apellidos}
-                    onChangeText={this.usuario_apellidos_Handler}
-                    style={styles.textInput}
-                  />
-                </View>
-                <Text style={styles.text}>Dirección</Text>
-                <View style={styles.containerEmail}>
-                  <TextInput
-                    placeholder="García Moreno S4-35 y Ambato"
-                    placeholderTextColor="white"
-                    name="direccion"
-                    value={direccion}
-                    onChangeText={this.usuario_direccion_Handler}
-                    style={styles.textInput}
-                  />
-                </View>
-                <Text style={styles.text}>Correo Electrónico</Text>
-                <View style={styles.containerEmail}>
-                  <TextInput
-                    placeholder="example@gmail.com"
-                    placeholderTextColor="white"
-                    name="correo"
-                    value={idpersona}
-                    onChangeText={this.usuario_correo_Handler}
-                    style={styles.textInput}
-                  />
-                </View>
-
-                <Text style={styles.text}>Contraseña</Text>
-                <View style={styles.containerPassword}>
-                  <TextInput
-                    placeholder="*******"
-                    placeholderTextColor="white"
-                    name="clave"
-                    value={clave}
-                    onChangeText={this.usuario_clave_Handler}
-                    style={styles.textInput}
-                    secureTextEntry={true}
-                  />
-                </View>
-                <Link onPress={this.registroUser}>
-                  <Text style={styles.containerCancelar}>Guardar</Text>
-                </Link>
-                <Link to="/perfil">
-                  <Text style={styles.containerCancelar}>Cancelar</Text>
-                </Link>
-              </View>
-            </ScrollView>
+            <Text style={styles.header1}>Escanée el código</Text>
+              <Escanear/>
           </View>
         </MenuDrawer>
       </View>

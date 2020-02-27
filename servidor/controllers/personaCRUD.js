@@ -78,8 +78,8 @@ const deleteData = (req, res) => {
 }
 
 const getlogin = (req,res)=>{
-    const {id}=req.query;
-    Personas.findAll({where:{id}})
+    const {correo}=req.query;
+    Personas.findAll({where:{correo}})
     .then(response =>{
         return res.status(200).json({
             ok:true,

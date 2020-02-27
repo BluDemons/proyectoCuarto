@@ -32,7 +32,7 @@ export default class ScooterScreen extends Component {
     axios.get(API+"scooters_disponibles?estado=1")
     .then( response => {
       this.setState({ scooter: response.data.datos })
-      if (!scooter){
+      if (!response){
         alert("Lo sentimos por el momento no hay dispositivos disponibles")
       }
     })
@@ -103,6 +103,13 @@ export default class ScooterScreen extends Component {
           <TouchableHighlight>
             <Link to="/reserve" style={styles.menuButton}>
               <Text style={{ color: "#fff" }}>Reservaciones</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>        
+        <View>
+          <TouchableHighlight style={styles.menuButton}>
+            <Link to="/scaner">
+              <Text style={{ color: "#fff" }}>Escanear Código</Text>
             </Link>
           </TouchableHighlight>
         </View>
