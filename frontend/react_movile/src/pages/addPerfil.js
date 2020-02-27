@@ -19,20 +19,18 @@ import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 import API from '../components/API';
 
-export default class Reserva extends Component {
+export default class AddPerfil extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reserva: [],
-      scooter:[],
-      horario:[],
+      persona:[],
       open: false,
-      descripcion: "",
-      precio_total: "",
-      idpersona: '',
-      nombre_persona:'',
-      idscooter: "",
-      idhorario: ""
+      id:AsyncStorage.getItem('id'),
+      nombres: AsyncStorage.getItem('nombres'),
+      apellidos: AsyncStorage.getItem('apellidos'),
+      direccion: AsyncStorage.getItem('direccion'),
+      correo: AsyncStorage.getItem('correo'),
+      calve:AsyncStorage.getItem('clave')
     };
   }
 
@@ -41,36 +39,57 @@ export default class Reserva extends Component {
   }
   
   getData = () => {
-    axios.get(API+"scooters_disponibles?estado=1")
-    .then( response => {
-      this.setState({ scooter: response.data.datos })
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
     axios.get(`${API}getlogin?id=${ this.state.idpersona }`)
+    alert(idpersona)
     .then( response => {
-      this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
-      AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
-    })
-    .catch(error => {
-      console.log(error)
-    })
-    axios.get(API+'persona')
-    .then( response => {
-      this.setState({ persona: response.data.datos })
+      this.setState({ nombre_persona: response.data.datos.nombres + " " + response.data.datos.apellidos })
+      AsyncStorage.setItem('', this.state.nombre_persona.toString());
     })
     .catch(error => {
       console.log(error)
     })
   }
 
+  updateData = e => {
+    e.preventDefault();
+      this.update = {
+        datos: [{
+          id: this.state.id,
+          nombres: this.state.nombres,
+          apellidos: this.state.apellidos,
+          direccion: this.state.direccion,
+          correo:this.state.correo,
+          clave: this.state.clave,
+        }]
+      };
+  
+      if (this.update.datos[0].id === "" ||
+        this.update.datos[0].nombres === "" ||
+        this.update.datos[0].apellidos === "" ||
+        this.update.datos[0].direccion === "" ||
+        this.update.datos[0].correo === "" ||
+        this.update.datos[0].clave === ""
+      ) {
+         alert('Complete todos los campos para continuar!!')
+      } else {
+        axios
+          .put(`${API}persona?id=`+ this.state.id, this.update)
+          .then(response => {
+            if (response.data.ok === true) {
+             alert('Actualizado correctamente!')
+              .then( () => this.props.history.push("/perfil"));
+            }
+          })
+          .catch(error => {
+            alert(error);
+          });
+      }
+    };
+
   asyncstorageGet = async () => {
     try {
       const id = await AsyncStorage.getItem('idpersona')
       this.setState({ idpersona: id})
-      alert(id)
       this.getData()
     } catch (e) {
       alert(e)

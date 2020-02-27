@@ -47,6 +47,16 @@ export default class UserScreen extends Component {
     })
   };
 
+  editarPerfil = (p_id, p_nombres,p_apellidos, p_direccion,p_correo,p_clave) => {
+    AsyncStorage.setItem('id', p_id);
+    AsyncStorage.setItem('nombres',p_nombres );
+    AsyncStorage.setItem('apellidos', p_apellidos);
+    AsyncStorage.setItem('direccion', p_direccion);
+    AsyncStorage.setItem('correo', p_correo);
+    AsyncStorage.setItem('clave', p_clave);
+    this.props.history.push('/update')
+  }
+
   componentDidMount() {
     this.asyncstorageGet();
   }
@@ -159,7 +169,6 @@ export default class UserScreen extends Component {
                 color="#fff"
               />
             </TouchableOpacity>
-
             <View style={styles.header}>
               <Text style={styles.textHeader}>Travel Healtly with Scooter</Text>
             </View>
@@ -176,7 +185,7 @@ export default class UserScreen extends Component {
                     chevron
                   />
             ))}
-          </ScrollView>
+          </ScrollView>          
           </View>
         </MenuDrawer>
       </View>
