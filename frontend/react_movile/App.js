@@ -30,6 +30,7 @@ class App extends Component {
   
       let location = await Location.getCurrentPositionAsync({});
       this.setState({ location });
+      console.log(location.coords.latitude)
     };
 
    render() {
