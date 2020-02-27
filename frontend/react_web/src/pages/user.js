@@ -56,15 +56,23 @@ class User extends Component {
   }
 
   deleteData = value => {
-    axios.delete(`${API}?id=${value}`, {
+   axios.delete(`${API}?id=${value}`, {
       data: { id: value }
-    })
+    }).then(response => {
+    if (response.data.ok === true){
     Sweet.fire(
       '',
       'Eliminado OK'
-  )
+  )}
+  else{
+    Sweet.fire(
+      '',
+      'Imposible De eliminar'
+  )}
     window.location.assign("http://localhost:3000/user");
+  })
   };
+  
 
   render() {
     const { persona } = this.state;
