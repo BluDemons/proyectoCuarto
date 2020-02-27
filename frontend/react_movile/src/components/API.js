@@ -1,3 +1,3 @@
-const API = 'http://192.168.0.113:5000/thws/';
+const API = 'http://172.16.11.134:5000/thws/';
 
 export default API;
