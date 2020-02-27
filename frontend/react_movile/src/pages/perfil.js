@@ -30,16 +30,8 @@ export default class UserScreen extends Component {
     };
   }
 
-  getData = () => {
+  getData = () => {    
     axios.get(`${API}getlogin?correo=${ this.state.idpersona }`)
-    .then( response => {
-      this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
-      AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
-    })
-    .catch(error => {
-      console.log(error)
-    })
-    axios.get(API+'persona')
     .then( response => {
       this.setState({ persona: response.data.datos })
     })
@@ -53,7 +45,7 @@ export default class UserScreen extends Component {
     AsyncStorage.setItem('nombres',p_nombres );
     AsyncStorage.setItem('apellidos', p_apellidos);
     AsyncStorage.setItem('direccion', p_direccion);
-    AsyncStorage.setItem('correo', id);
+    AsyncStorage.setItem('correo', p_correo);
     AsyncStorage.setItem('clave', p_clave);
     this.props.history.push('/update')
   }
@@ -70,7 +62,7 @@ export default class UserScreen extends Component {
     try {
       const id = await AsyncStorage.getItem("idpersona");
       this.setState({ idpersona: id });
-      alert(id);
+      //alert(this.state.idpersona)
       this.getData();
     } catch (e) {
       alert(e);
@@ -183,12 +175,11 @@ export default class UserScreen extends Component {
             <View style={styles.body}>
           <ScrollView alwaysBounceVertical>
             {persona.map(item => (
-                  <View>
+                  <View key={item.id}>
                   <ListItem
-                    key={item.id}
                     title={item.nombres}
                     subtitle={item.correo}
-                    leftAvatar={{ source: { uri: item.apellidos } }}
+                    leftAvatar={{ source: { uri: item.correo } }}
                     bottomDivider
                     chevron
                   />

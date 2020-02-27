@@ -26,11 +26,11 @@ export default class Reserva extends Component {
       reserva: [],
       scooter:[],
       horario:[],
+      persona:[],
       open: false,
       descripcion: "",
       precio_total: "",
       idpersona: '',
-      nombre_persona:'',
       idscooter: "",
       idhorario: ""
     };
@@ -51,8 +51,7 @@ export default class Reserva extends Component {
 
     axios.get(`${API}getlogin?correo=${ this.state.idpersona }`)
     .then( response => {
-      this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
-      AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
+      this.setState({ persona: response.data.datos })
     })
     .catch(error => {
       console.log(error)
@@ -70,7 +69,7 @@ export default class Reserva extends Component {
     try {
       const id = await AsyncStorage.getItem('idpersona')
       this.setState({ idpersona: id})
-      alert(`Bienvenido: ${id}`)
+      //alert(`Bienvenido: ${id}`)
       this.getData()
     } catch (e) {
       alert(e)
@@ -114,7 +113,7 @@ export default class Reserva extends Component {
     e.preventDefault();
     this.post = {
       datos: {
-        descripcion: this.state.descripcion,
+        descripcion: `Se realizo la reserva del scooter: ${this.idscooter} a la persona ${this.idpersona}`,
         precio_total: this.state.precio_total,
         idpersona: this.state.idpersona,
         idscooter: this.state.idscooter,
@@ -133,15 +132,15 @@ export default class Reserva extends Component {
       alert("Complete todos los campos para continuar...");
     } else {
       axios
-        .post(API + "detalle_reservas", this.post)
+        .post(API + "reserva", this.post)
         .then(response => {
           if (response.data.ok === true) {
             alert("Compra correctamente");
-            return this.props.history.push("reserve");
+            return this.props.history.push("/scooters");
           }
         })
         .catch(error => {
-          alert("Datos Incorrectos");
+          alert(error);
         });
     }
   };
@@ -233,6 +232,7 @@ export default class Reserva extends Component {
       precio_total,
       idpersona,
       idscooter,
+      persona,
       idhorario
     } = this.state;
     return (
@@ -280,7 +280,6 @@ export default class Reserva extends Component {
                     value={descripcion}
                     onChangeText={this.descripcion_Handler}
                     style={styles.textInput}
-                    color="white"
                   />
                 </View>
                 <Text style={styles.text}>Precio</Text>
@@ -293,11 +292,10 @@ export default class Reserva extends Component {
                     autoCompleteType={"cc-number"}
                     keyboardType={"numbers-and-punctuation"}
                     onChangeText={this.precio_Handler}
-                    color="white"
                     style={styles.textInput}
                   />
                 </View>
-                <Text style={styles.text}>Usuario</Text>
+                {/* <Text style={styles.text}>Usuario</Text>
                 <View style={styles.containerEmail}>
                   <TextInput
                     placeholder="usuario"
@@ -305,10 +303,21 @@ export default class Reserva extends Component {
                     name="idpersona"
                     value={idpersona}
                     onChangeText={this.persona_Handler}
-                    color="white"
                     style={styles.textInput}
                   />
-                </View>               
+                </View> */}
+                <Picker
+                  selectedValue={this.state.idpersona}
+                  style={styles.picker}
+                  onValueChange={(itemValue) =>
+                    this.setState({ idpersona: itemValue })
+                  }
+                >
+                  <Picker.Item label="Usuario" />
+                  {persona.map(item=>(
+                  <Picker.Item key={item.id} label={item.nombres+' '+item.apellidos} value={item.id}></Picker.Item>
+                  ))} 
+                </Picker>               
                 <Picker
                   selectedValue={this.state.idhorario}
                   style={styles.picker}
@@ -321,20 +330,21 @@ export default class Reserva extends Component {
                   <Picker.Item key={item.id} label={item.hora+' '+item.precio} value={item.id}>{" "}{item.precio}{" "}</Picker.Item>
                   ))} 
                 </Picker>
-                <Text style={styles.text}>Dispositivo</Text>
-                <View style={styles.containerEmail}>
-                  <TextInput
-                    placeholder="usuario"
-                    placeholderTextColor="white"
-                    name="idpersona"
-                    value={idpersona}
-                    onChangeText={this.persona_Handler}
-                    color="white"
-                    style={styles.textInput}
-                  />
-                </View>  
+                              
+                <Picker
+                  selectedValue={this.state.idscooter}
+                  style={styles.picker}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ idscooter: itemValue })
+                  }
+                >
+                  <Picker.Item label="Seleccione dispositivo" />
+                  {scooter.map(item=>(
+                  <Picker.Item key={item.id} label={item.descripcion} value={item.id}>{item.descripcion}</Picker.Item>
+                  ))} 
+                </Picker> 
                 <View style={styles.containerIngresar}>
-                  <Button title="Reservar" onPress={this.registroUser} />
+                  <Button title="Reservar" onPress={this.registroScooter} />
                 </View>
               </View>
             </ScrollView>

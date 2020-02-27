@@ -41,7 +41,7 @@ export default class AddPerfil extends Component {
 
   getData = () => {
     axios
-      .get(`${API}getlogin?id=${this.state.idpersona}`)
+      .get(`${API}getlogin?correo=${this.state.idpersona}`)
       .then(response => {
         this.setState({
           nombre_persona:
@@ -80,7 +80,7 @@ export default class AddPerfil extends Component {
       alert("Complete todos los campos para continuar!!");
     } else {
       axios
-        .put(`${API}persona?id=` + this.state.id, this.update)
+        .put(`${API}persona?correo=` + this.state.id, this.update)
         .then(response => {
           if (response.data.ok === true) {
             alert("Actualizado correctamente!").then(() =>
@@ -96,9 +96,8 @@ export default class AddPerfil extends Component {
 
   asyncstorageGet = async () => {
     try {
-      const id = await AsyncStorage.getItem("idpersona");
-      this.setState({ idpersona: id });
-      alert(id);
+      const datoPersona = await AsyncStorage.getItem("idpersona");
+      this.setState({ idpersona: datoPersona });
       this.getData();
     } catch (e) {
       alert(e);
@@ -245,7 +244,7 @@ export default class AddPerfil extends Component {
 
             <View style={styles.header}>
               <Text style={styles.textHeader}>Travel Healtly with Scooter</Text>
-            </View>
+            </View> 
           </View>
 
           <View style={styles.body}>
