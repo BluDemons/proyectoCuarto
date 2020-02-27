@@ -170,6 +170,13 @@ export default class AddPerfil extends Component {
         </View>
         <View>
           <TouchableHighlight>
+            <Link to="/mapa" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Mapa</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
+        <View>
+          <TouchableHighlight>
             <Link to="/scooters" style={styles.menuButton}>
               <Text style={{ color: "#fff" }}>Scooters</Text>
             </Link>

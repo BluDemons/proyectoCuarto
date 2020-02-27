@@ -118,11 +118,11 @@ export default class UserScreen extends Component {
         </View>
         <View>
           <TouchableHighlight>
-            <Link to="/scooters" style={styles.menuButton}>
-              <Text style={{ color: "#fff" }}>Scooters</Text>
+            <Link to="/mapa" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Mapa</Text>
             </Link>
           </TouchableHighlight>
-        </View>        
+        </View>
         <View>
           <TouchableHighlight>
             <Link to="/reserve" style={styles.menuButton}>
