@@ -50,7 +50,7 @@ class Login extends Component {
 
   render() {
     const { correo, clave } = this.state
-    const image= require('../assets/fondo.jpg')
+    const image= require('../assets/scooter.jpg')
     return (
       <div
         className="h-screen font-sans"

@@ -8,7 +8,7 @@ import L from 'leaflet';
 
 const iconVerde = new L.Icon({
 
-   iconUrl: require('../assets/marker.png'),
+   iconUrl: require('../assets/maerker.png'),
 
    iconSize:     [40, 45], // tamaño del icono
 

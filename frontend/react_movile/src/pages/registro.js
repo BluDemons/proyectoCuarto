@@ -5,7 +5,7 @@ import {
   View,
   StyleSheet,
   AsyncStorage,
-  TouchableOpacity,
+  TouchableHighlight,
   ImageBackground
 } from "react-native";
 import { Icon, Button } from "react-native-elements";
@@ -30,24 +30,24 @@ export default class RegistroScreen extends React.Component {
   }
 
   usuario_nombre_Handler = text => {
-    this.setState({ nombres: text })
-  }
+    this.setState({ nombres: text });
+  };
 
   usuario_apellidos_Handler = text => {
-    this.setState({ apellidos: text })
-  }
+    this.setState({ apellidos: text });
+  };
 
   usuario_direccion_Handler = text => {
-    this.setState({ direccion: text })
-  }
+    this.setState({ direccion: text });
+  };
 
   usuario_correo_Handler = text => {
-    this.setState({ correo: text })
-  }
+    this.setState({ correo: text });
+  };
 
   usuario_clave_Handler = text => {
-    this.setState({ clave: text })
-  }
+    this.setState({ clave: text });
+  };
 
   static navigationOptions = {
     header: null
@@ -93,15 +93,15 @@ export default class RegistroScreen extends React.Component {
   render() {
     const { nombres, apellidos, direccion, correo, clave } = this.state;
     return (
-      <ImageBackground source={imgbg} style={{ width: "100%", height: "100%" }}>
-          <Text style={styles.header}>Registro</Text>
+      <ImageBackground source={imgbg} style={{ width: "100%", height: "100%" }}>    
+        <Text style={styles.header}>Registro</Text>
         <ScrollView alwaysBounceVertical style={styles.containerScrool}>
           <View style={styles.container}>
             <Text style={styles.text}>Nombres</Text>
             <View style={styles.containerEmail}>
               <Icon
                 type="font-awesome"
-                name="user"
+                name="wpforms"
                 color="black"
                 containerStyle={styles.icon}
               />
@@ -118,7 +118,7 @@ export default class RegistroScreen extends React.Component {
             <View style={styles.containerEmail}>
               <Icon
                 type="font-awesome"
-                name="user"
+                name="wpforms"
                 color="black"
                 containerStyle={styles.icon}
               />
@@ -134,8 +134,8 @@ export default class RegistroScreen extends React.Component {
             <Text style={styles.text}>Dirección</Text>
             <View style={styles.containerEmail}>
               <Icon
-                type="font-awesome"
-                name="user"
+                type="MaterialIcons"
+                name="add-location"
                 color="black"
                 containerStyle={styles.icon}
               />
@@ -151,8 +151,8 @@ export default class RegistroScreen extends React.Component {
             <Text style={styles.text}>Correo Electrónico</Text>
             <View style={styles.containerEmail}>
               <Icon
-                type="font-awesome"
-                name="user"
+                type="Entypo"
+                name="email"
                 color="black"
                 containerStyle={styles.icon}
               />
@@ -187,6 +187,9 @@ export default class RegistroScreen extends React.Component {
             <View style={styles.containerIngresar}>
               <Button title="Guardar" onPress={this.registroUser} />
             </View>
+            <View style={styles.containerCancelar}>
+              <Button title="Cancelar" onPress={()=>{this.props.history.push('/')}} />
+            </View>
           </View>
         </ScrollView>
       </ImageBackground>
@@ -201,21 +204,22 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "stretch",
-    marginTop:25
+    marginTop: "30%",
+    height:"100%"
   },
-  containerScrool:{
+  containerScrool: {
     flex: 1,
     width: "100%",
     height: "100%",
     flexDirection: "column",
-    marginTop:'20%'
-},
-header:{
-    marginTop:'10%',
-    marginLeft:'2%',
-    fontSize:25,
-    color:"#fff"
-},
+    marginTop: "20%"
+  },
+  header: {
+    marginTop: "10%",
+    marginLeft: "2%",
+    fontSize: 25,
+    color: "#fff"
+  },
   helpLink: {
     paddingVertical: 15
   },
@@ -228,7 +232,13 @@ header:{
     height: "25%",
     marginLeft: "25%",
     marginRight: "25%",
-    paddingTop: "10%"
+    paddingTop: "15%"
+  },
+  containerCancelar: {
+    height: "25%",
+    marginLeft: "25%",
+    marginRight: "25%",
+    marginTop:"-5%"
   },
   containerEmail: {
     height: 60,

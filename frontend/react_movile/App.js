@@ -1,25 +1,36 @@
-import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Alert,
-  TouchableOpacity
-} from "react-native";
+import React, { Component } from 'react';
+import {Platform, AppRegistry, View } from 'react-native';
 import Route from './routes';
-
+import Constants from 'expo-constants';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 class App extends Component {
-
-   componentDidMount = () => {
-      navigator.geolocation.watchPosition(
-        posicion => {
-          const coordenadas = JSON.stringify(posicion);
-          this.setState({ coordenadas });
-        },
-        error => Alert.alert(error.message),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-      );
+   state = {
+      location: null,
+      errorMessage: null,
+    };
+  
+    componentDidMount() {
+      if (Platform.OS === 'android' && !Constants.isDevice) {
+        this.setState({
+          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+        });
+      } else {
+        this._getLocationAsync();
+      }
+    }
+  
+    _getLocationAsync = async () => {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
+  
+      let location = await Location.getCurrentPositionAsync({});
+      this.setState({ location });
+      console.log(location.coords.latitude)
     };
 
    render() {

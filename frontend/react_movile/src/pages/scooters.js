@@ -29,14 +29,16 @@ export default class ScooterScreen extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(API+'scooter')
-      .then(response => {
-        this.setState({ scooter: response.data.datos });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.get(API+"scooters_disponibles?estado=1")
+    .then( response => {
+      this.setState({ scooter: response.data.datos })
+      if (!scooter){
+        alert("Lo sentimos por el momento no hay dispositivos disponibles")
+      }
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   asyncstorageSave = async idscooter => {

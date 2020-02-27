@@ -11,6 +11,7 @@ export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id:'',
       correo: '',
       clave: ''
     }
@@ -35,7 +36,7 @@ export default class LoginScreen extends React.Component {
       axios.post(API+'login', this.state)
       .then(response => {
         if ( response.data.mensaje === "found" ) {
-          AsyncStorage.setItem('id_usuario', this.state.clave.toString());
+          AsyncStorage.setItem('idpersona', this.state.correo.toString());
           return this.props.history.push("reserve");
         }
       })

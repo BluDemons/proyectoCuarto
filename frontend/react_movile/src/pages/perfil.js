@@ -24,20 +24,38 @@ export default class UserScreen extends Component {
     this.state = {
       persona: [],
       open: false,
-      id_persona: ""
+      idpersona: "",
+      nombre_persona:"",
     };
   }
 
   getData = () => {
-    axios
-      .get(`${API}/persona?id='${this.state.id_persona}'`)
-      .then(response => {
-        this.setState({ persona: response.data.datos });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.get(`${API}getlogin?id=${ this.state.idpersona }`)
+    .then( response => {
+      this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
+      AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    axios.get(API+'persona')
+    .then( response => {
+      this.setState({ persona: response.data.datos })
+    })
+    .catch(error => {
+      console.log(error)
+    })
   };
+
+  editarPerfil = (p_id, p_nombres,p_apellidos, p_direccion,p_correo,p_clave) => {
+    AsyncStorage.setItem('id', p_id);
+    AsyncStorage.setItem('nombres',p_nombres );
+    AsyncStorage.setItem('apellidos', p_apellidos);
+    AsyncStorage.setItem('direccion', p_direccion);
+    AsyncStorage.setItem('correo', p_correo);
+    AsyncStorage.setItem('clave', p_clave);
+    this.props.history.push('/update')
+  }
 
   componentDidMount() {
     this.asyncstorageGet();
@@ -49,8 +67,9 @@ export default class UserScreen extends Component {
 
   asyncstorageGet = async () => {
     try {
-      const id = await AsyncStorage.getItem("id");
-      this.setState({ id_persona: id });
+      const id = await AsyncStorage.getItem("idpersona");
+      this.setState({ idpersona: id });
+      alert(id);
       this.getData();
     } catch (e) {
       alert(e);
@@ -123,7 +142,7 @@ export default class UserScreen extends Component {
   };
 
   render() {
-    const { persona } = this.state;
+    const { persona,nombre_persona,idpersona } = this.state;
     return (
       <View style={styles.container}>
         <MenuDrawer
@@ -150,7 +169,6 @@ export default class UserScreen extends Component {
                 color="#fff"
               />
             </TouchableOpacity>
-
             <View style={styles.header}>
               <Text style={styles.textHeader}>Travel Healtly with Scooter</Text>
             </View>
@@ -167,29 +185,12 @@ export default class UserScreen extends Component {
                     chevron
                   />
             ))}
-          </ScrollView>
+          </ScrollView>          
           </View>
         </MenuDrawer>
       </View>
     );
   }
-}
-function OptionButton({ icon, label, onPress, isLastOption }) {
-  return (
-    <RectButton
-      style={[styles.option, isLastOption && styles.lastOption]}
-      onPress={onPress}
-    >
-      <View style={{ flexDirection: "row" }}>
-        <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-        </View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{label}</Text>
-        </View>
-      </View>
-    </RectButton>
-  );
 }
 
 const styles = StyleSheet.create({
