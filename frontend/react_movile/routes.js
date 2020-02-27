@@ -9,6 +9,7 @@ import RegistroScreen from './src/pages/registro';
 import UserScreen from './src/pages/perfil';
 import Home from './src/pages/home';
 import ScooterScreen from './src/pages/scooters';
+import Mapa from './src/pages/mapa';
 
 
 export default class App extends Component {
@@ -24,6 +25,7 @@ export default class App extends Component {
             <Route path="/registro" component={ RegistroScreen } /> 
             <Route path="/perfil" component={ UserScreen } /> 
             <Route path="/scooters" component={ ScooterScreen } /> 
+            <Route path="/mapa" component={ Mapa } /> 
           </Switch>
         </View>
       </NativeRouter>

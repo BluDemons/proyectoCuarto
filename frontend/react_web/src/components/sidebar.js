@@ -23,14 +23,14 @@ const Sidebar = () => (
                             </span>
                         </Link>
                     </li>
-                    <li className="items-center">
+                    {/* <li className="items-center">
                         <Link to="/mapa">
                             <span className="cursor-pointer px-2 py-1 hover:bg-gray-800 hover:text-gray-300 rounded block mb-5">
                                 <i className="fas fa-map-marker-alt opacity-75 mr-2 text-sm"></i>
                                 <span className="mx-2"> Mapa de Ubicación</span>
                             </span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className="items-center">
                         <div className="text-gray-800 text-xs uppercase py-3 font-bold block">
                             <i className="fas fa-fingerprint text-gray-900 mr-2 text-sm"></i>
