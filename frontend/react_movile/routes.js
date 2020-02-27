@@ -18,7 +18,7 @@ export default class App extends Component {
       <NativeRouter>
         <View style={styles.container}>
           <Switch>
-            <Route exact path="/" component={ Login } />
+            <Route exact path="/" component={ Reserve } />
             <Route exact path="/home" component={ Home } /> 
             <Route path="/reserve" component={ Reserve } /> 
             <Route path="/detalle" component={ Detalle } /> 

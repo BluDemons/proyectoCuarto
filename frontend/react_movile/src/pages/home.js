@@ -58,16 +58,29 @@ export default class Home extends Component {
           />
           <Text style={{color: '#fff', marginVertical: '10%', alignItems: 'center', paddingHorizontal: '5%'}}>Sistema de Biblioteca</Text>
           <TouchableHighlight>
-            <Link to="/library" style={styles.menuButton}>
+            <Link to="/scooters" style={styles.menuButton}>
               <Text style={{color: '#fff'}}>Biblioteca</Text>
             </Link>
           </TouchableHighlight>
         </View>
-
+        <View>
+          <TouchableHighlight>
+            <Link to="/mapa" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Mapa</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
         <View>
           <TouchableHighlight>
             <Link to="/reserve" style={styles.menuButton}>
               <Text style={{color: '#fff'}}>Reservaciones</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
+        <View>
+          <TouchableHighlight>
+            <Link to="/" style={styles.menuButton}>
+              <Text style={{color: '#fff'}}>Cerrar Sesión</Text>
             </Link>
           </TouchableHighlight>
         </View>
@@ -95,12 +108,6 @@ export default class Home extends Component {
             <View style={styles.header} >
               <Text style={styles.textHeader}>Sistema de biblioteca</Text>
             </View>
-
-            <TouchableHighlight style={styles.menu}>
-              <Link to="/library">
-                <Icon style={styles.openButton} name="chevron-left" size={30} color="#fff" />
-              </Link>
-            </TouchableHighlight>
           </View>
 
           <View style={styles.body}>

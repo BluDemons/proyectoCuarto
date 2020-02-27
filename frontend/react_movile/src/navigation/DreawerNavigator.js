@@ -8,7 +8,7 @@ import Registro from '../screens/register';
 
 const DrawerNavigator = createDrawerNavigator({
   'One': Scooter,
-  'Two': Registro
+  'Two': Registro,
 });
 
 export default DrawerNavigator;

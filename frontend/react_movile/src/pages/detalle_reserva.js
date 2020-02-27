@@ -65,11 +65,6 @@ export default class detalleBook extends Component {
           source={require('../assets/ticket.jpg')}
         />
         <Text style={{color: '#fff', marginVertical: '10%', alignItems: 'center', paddingHorizontal: '5%'}}>Sistema de Biblioteca</Text>
-            <TouchableHighlight>
-              <Link to="/library" style={styles.menuButton}>
-                  <Text style={{color: '#fff'}}>Biblioteca</Text>
-              </Link>
-            </TouchableHighlight>
           </View>
           <View>
             <TouchableHighlight>
@@ -136,12 +131,13 @@ export default class detalleBook extends Component {
             <View style={styles.header} >
               <Text style={styles.textHeader}>Sistema de Bibliotecario</Text>
             </View>
-
-            <TouchableHighlight style={styles.menu}>
-              <Link to="/library" onPress={ () => this.updateData( this.state.id_libro )}>
-                <Icon style={styles.openButton} name="chevron-left" size={30} color="#fff" />
-              </Link>
-            </TouchableHighlight>
+            <View>
+          <TouchableHighlight>
+            <Link to="/" style={styles.menuButton}>
+              <Text style={{color: '#fff'}}>Cerrar Sesión</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
           </View>
 
           <View style={styles.body}>
@@ -162,13 +158,6 @@ export default class detalleBook extends Component {
                   <Text style={{marginBottom: 10}}>
                     Año: { element.año }
                   </Text>
-                  <TouchableOpacity style={styles.button}>
-                    <Link to="/detalle" onPress={ () => this.postData() }>
-                      <Text style={{marginHorizontal: 20, color: '#000'}} >
-                        <Icon name="bookmark" size={20} color="#000" /> Realizar Reservación
-                      </Text>
-                    </Link>
-                  </TouchableOpacity>
                 </Card>
                 )
               }
