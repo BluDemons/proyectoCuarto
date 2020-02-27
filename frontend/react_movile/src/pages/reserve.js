@@ -49,7 +49,7 @@ export default class Reserva extends Component {
       console.log(error)
     })
 
-    axios.get(`${API}getlogin?id=${ this.state.idpersona }`)
+    axios.get(`${API}getlogin?correo=${ this.state.idpersona }`)
     .then( response => {
       this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
       AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
@@ -57,9 +57,9 @@ export default class Reserva extends Component {
     .catch(error => {
       console.log(error)
     })
-    axios.get(API+'persona')
+    axios.get(API+'horario')
     .then( response => {
-      this.setState({ persona: response.data.datos })
+      this.setState({ horario: response.data.datos })
     })
     .catch(error => {
       console.log(error)
@@ -70,12 +70,21 @@ export default class Reserva extends Component {
     try {
       const id = await AsyncStorage.getItem('idpersona')
       this.setState({ idpersona: id})
-      alert(id)
+      alert(`Bienvenido: ${id}`)
       this.getData()
     } catch (e) {
       alert(e)
     }
   }
+
+  asyncstorageClear = async () => {
+    try {
+      await AsyncStorage.clear();
+      this.setState({ idpersona: "" });
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   descripcion_Handler = text => {
     this.setState({ descripcion: text });
@@ -199,7 +208,14 @@ export default class Reserva extends Component {
         </View>
         <View>
           <TouchableHighlight style={styles.menuButton}>
-            <Link to="/">
+            <Link to="/scaner">
+              <Text style={{ color: "#fff" }}>Escanear Código</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
+        <View>
+          <TouchableHighlight style={styles.menuButton}>
+            <Link to="/" onPress={() => this.asyncstorageClear()}>
               <Text style={{ color: "#fff" }}>Cerrar Sesión</Text>
             </Link>
           </TouchableHighlight>
@@ -272,9 +288,9 @@ export default class Reserva extends Component {
                     placeholder="$00.00"
                     placeholderTextColor="white"
                     name="precio_total"
-                    defaultValue={idhorario}
+                    defaultValue={precio_total}
                     autoCompleteType={"cc-number"}
-                    keyboardType={"numeric"}
+                    keyboardType={"numbers-and-punctuation"}
                     onChangeText={this.precio_Handler}
                     style={styles.textInput}
                   />

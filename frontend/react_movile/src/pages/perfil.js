@@ -6,7 +6,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from "react-native";
 import { Card } from "react-native-elements";
 import MenuDrawer from "react-native-side-drawer";
@@ -30,7 +31,7 @@ export default class UserScreen extends Component {
   }
 
   getData = () => {
-    axios.get(`${API}getlogin?id=${ this.state.idpersona }`)
+    axios.get(`${API}getlogin?correo=${ this.state.idpersona }`)
     .then( response => {
       this.setState({ nombre_persona: response.data.datos.nombres + response.data.datos.apellidos })
       AsyncStorage.setItem('nombre_persona', this.state.nombre_persona.toString());
@@ -52,7 +53,7 @@ export default class UserScreen extends Component {
     AsyncStorage.setItem('nombres',p_nombres );
     AsyncStorage.setItem('apellidos', p_apellidos);
     AsyncStorage.setItem('direccion', p_direccion);
-    AsyncStorage.setItem('correo', p_correo);
+    AsyncStorage.setItem('correo', id);
     AsyncStorage.setItem('clave', p_clave);
     this.props.history.push('/update')
   }
@@ -128,11 +129,11 @@ export default class UserScreen extends Component {
               <Text style={{ color: "#fff" }}>Reservaciones</Text>
             </Link>
           </TouchableHighlight>
-        </View>
+        </View>        
         <View>
-          <TouchableHighlight>
-            <Link to="/scooters" style={styles.menuButton}>
-              <Text style={{ color: "#fff" }}>Scooters</Text>
+          <TouchableHighlight style={styles.menuButton}>
+            <Link to="/scaner">
+              <Text style={{ color: "#fff" }}>Escanear Código</Text>
             </Link>
           </TouchableHighlight>
         </View>
@@ -148,7 +149,7 @@ export default class UserScreen extends Component {
   };
 
   render() {
-    const { persona,nombre_persona,idpersona } = this.state;
+    const { persona} = this.state;
     return (
       <View style={styles.container}>
         <MenuDrawer
@@ -182,6 +183,7 @@ export default class UserScreen extends Component {
             <View style={styles.body}>
           <ScrollView alwaysBounceVertical>
             {persona.map(item => (
+                  <View>
                   <ListItem
                     key={item.id}
                     title={item.nombres}
@@ -190,6 +192,10 @@ export default class UserScreen extends Component {
                     bottomDivider
                     chevron
                   />
+                    <Link to="/update" onPress={()=>{this.editarPerfil(item.id, item.nombres, item.apellidos, item.direccion, item.correo,item.clave)}}>
+                    <Text style={styles.btnBack}>Editar</Text>
+                  </Link>
+                  </View>
             ))}
           </ScrollView>          
           </View>
@@ -220,6 +226,19 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 6
+  },
+  btnBack: {
+    textAlign: "center",
+    color: "#fff",
+    backgroundColor: "#f3b667",
+    fontSize: 20,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 10,
+    borderRadius: 100,
+    paddingVertical: 10,
+    marginHorizontal: 50,
+    marginBottom: 20
   },
   text: {
     color: "#000",
