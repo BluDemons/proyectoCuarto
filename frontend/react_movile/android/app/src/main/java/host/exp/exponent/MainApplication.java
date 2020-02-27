@@ -14,6 +14,7 @@ import okhttp3.OkHttpClient;
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 
 public class MainApplication extends ExpoApplication implements AppLoaderPackagesProviderInterface<ReactPackage> {
 
@@ -29,8 +30,13 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
         // TODO: add native modules!
 
         // Needed for `react-native link`
+<<<<<<< HEAD
         // new MainReactPackage(),
             new RNPermissionsPackage()
+=======
+        new MainReactPackage(),
+            new MapsPackage()
+>>>>>>> 7d674a4ac743e09f51ec61f5fdf8d721d7f10b6c
     );
   }
 

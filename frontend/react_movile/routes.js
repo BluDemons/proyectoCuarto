@@ -11,6 +11,7 @@ import Home from './src/pages/home';
 import ScooterScreen from './src/pages/scooters';
 import AddPerfil from './src/pages/addPerfil';
 import Escanear from './src/pages/scaner';
+import Mapa from './src/pages/mapa';
 
 
 export default class App extends Component {
@@ -28,6 +29,7 @@ export default class App extends Component {
             <Route path="/scooters" component={ ScooterScreen } /> 
             <Route path="/update" component={ AddPerfil } /> 
             <Route path="/scaner" component={ Escanear } /> 
+            <Route path="/mapa" component={ Mapa } /> 
           </Switch>
         </View>
       </NativeRouter>
