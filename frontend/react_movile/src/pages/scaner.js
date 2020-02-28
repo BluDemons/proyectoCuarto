@@ -26,13 +26,7 @@ export default class AddPerfil extends Component {
     this.state = {
       persona: [],
       open: false,
-      idpersona: "",
-      id: AsyncStorage.getItem("id"),
-      nombres: AsyncStorage.getItem("nombres"),
-      apellidos: AsyncStorage.getItem("apellidos"),
-      direccion: AsyncStorage.getItem("direccion"),
-      correo: AsyncStorage.getItem("idpersona"),
-      calve: AsyncStorage.getItem("clave")
+      idpersona: ""
     };
   }
 
@@ -55,75 +49,15 @@ export default class AddPerfil extends Component {
       });
   };
 
-  updateData = e => {
-    e.preventDefault();
-    this.update = {
-      datos: [
-        {
-          id: this.state.id,
-          nombres: this.state.nombres,
-          apellidos: this.state.apellidos,
-          direccion: this.state.direccion,
-          correo: this.state.correo,
-          clave: this.state.clave
-        }
-      ]
-    };
-
-    if (
-      this.update.datos[0].id === "" ||
-      this.update.datos[0].nombres === "" ||
-      this.update.datos[0].apellidos === "" ||
-      this.update.datos[0].direccion === "" ||
-      this.update.datos[0].correo === "" ||
-      this.update.datos[0].clave === ""
-    ) {
-      alert("Complete todos los campos para continuar!!");
-    } else {
-      axios
-        .put(`${API}persona?id=` + this.state.id, this.update)
-        .then(response => {
-          if (response.data.ok === true) {
-            alert("Actualizado correctamente!").then(() =>
-              this.props.history.push("/perfil")
-            );
-          }
-        })
-        .catch(error => {
-          alert(error);
-        });
-    }
-  };
-
   asyncstorageGet = async () => {
     try {
       const id = await AsyncStorage.getItem("idpersona");
       this.setState({ idpersona: id });
-      alert(id);
+      //alert(id);
       this.getData();
     } catch (e) {
       alert(e);
     }
-  };
-
-  usuario_nombre_Handler = text => {
-    this.setState({ nombres: text });
-  };
-
-  usuario_apellidos_Handler = text => {
-    this.setState({ apellidos: text });
-  };
-
-  usuario_direccion_Handler = text => {
-    this.setState({ direccion: text });
-  };
-
-  usuario_correo_Handler = text => {
-    this.setState({ correo: text });
-  };
-
-  usuario_clave_Handler = text => {
-    this.setState({ clave: text });
   };
 
   toggleOpen = () => {
@@ -178,6 +112,13 @@ export default class AddPerfil extends Component {
         </View>
         <View>
           <TouchableHighlight>
+            <Link to="/mapa" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Mapa</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>
+        <View>
+          <TouchableHighlight>
             <Link to="/reserve" style={styles.menuButton}>
               <Text style={{ color: "#fff" }}>Reservaciones</Text>
             </Link>
@@ -202,14 +143,6 @@ export default class AddPerfil extends Component {
   };
 
   render() {
-    const {
-      nombres,
-      apellidos,
-      direccion,
-      correo,
-      clave,
-      idpersona
-    } = this.state;
     return (
       <View style={styles.container}>
         <MenuDrawer
@@ -243,7 +176,7 @@ export default class AddPerfil extends Component {
           </View>
 
           <View style={styles.body}>
-            <Text style={styles.header1}>Escanée el código</Text>
+            <Text style={styles.header1}>Escanear código</Text>
               <Escanear/>
           </View>
         </MenuDrawer>

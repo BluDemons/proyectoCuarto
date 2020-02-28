@@ -69,6 +69,9 @@ export default class Reserva extends Component {
     try {
       const id = await AsyncStorage.getItem('idpersona')
       this.setState({ idpersona: id})
+      const qrcode = await AsyncStorage.getItem('idscooter')
+      this.setState({idscooter:qrcode})
+      //alert(qrcode)
       //alert(`Bienvenido: ${id}`)
       this.getData()
     } catch (e) {
@@ -183,18 +186,18 @@ export default class Reserva extends Component {
               <Text style={{ color: "#fff" }}>Perfil</Text>
             </Link>
           </TouchableHighlight>
-        </View>
+        </View>        
         <View>
           <TouchableHighlight>
-            <Link to="/mapa" style={styles.menuButton}>
-              <Text style={{ color: "#fff" }}>Mapa</Text>
+            <Link to="/scooters" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Scooters</Text>
             </Link>
           </TouchableHighlight>
         </View>
         <View>
           <TouchableHighlight>
-            <Link to="/scooters" style={styles.menuButton}>
-              <Text style={{ color: "#fff" }}>Scooters</Text>
+            <Link to="/mapa" style={styles.menuButton}>
+              <Text style={{ color: "#fff" }}>Mapa</Text>
             </Link>
           </TouchableHighlight>
         </View>
@@ -285,7 +288,7 @@ export default class Reserva extends Component {
                 <Text style={styles.text}>Precio</Text>
                 <View style={styles.containerEmail}>
                   <TextInput
-                    placeholder="$00.00"
+                    placeholder="precio"
                     placeholderTextColor="white"
                     name="precio_total"
                     defaultValue={precio_total}

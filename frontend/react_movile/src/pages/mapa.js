@@ -1,53 +1,41 @@
-import React from 'react';
-import MapView, { PROVIDER_GOOLE } from 'react-native-maps';
+import React, { Component } from "react";
 import {
-  StyleSheet,
-  Dimensions,
   View,
   Text,
+  StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import MenuDrawer from 'react-native-side-drawer';
-import Icon from "react-native-vector-icons/FontAwesome";
+  AsyncStorage,
+  TextInput,
+  Button,
+  Picker
+} from "react-native";
+import { Card } from "react-native-elements";
+import MenuDrawer from "react-native-side-drawer";
 import { Link } from "react-router-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { ScrollView } from "react-native-gesture-handler";
+import axios from "axios";
+import API from "../components/API";
+import Mapa from "../components/mapa";
 
-export default class Mapa extends React.Component {
+export default class AddPerfil extends Component {
   constructor(props) {
-    super(props)
-
-    // Estado inicial de los componentes
+    super(props);
     this.state = {
-      // Tendrá las coordenadas del marcador
-      latLng: {
-        latitude: 0,
-        longitude: 0,
-      },
+      persona: [],
+      open: false,
+    };
+  }
 
-      // Configuración del mapa
-      region: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.002,
-        longitudeDelta: 0.002,
-      }
-    }
-  }
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords
-      this.setState({
-        latLng: { latitude, longitude },
-        region: {
-          ...this.state.region,
-          latitude,
-          longitude
-        }
-      })
-    })
   }
+
+  toggleOpen = () => {
+    this.setState({ open: !this.state.open });
+  };
+
   drawerContent = () => {
     return (
       <View style={styles.animatedBox}>
@@ -93,8 +81,8 @@ export default class Mapa extends React.Component {
               <Text style={{ color: "#fff" }}>Scooters</Text>
             </Link>
           </TouchableHighlight>
-        </View>
-        <View>
+        </View>        
+        <View>          
           <TouchableHighlight>
             <Link to="/mapa" style={styles.menuButton}>
               <Text style={{ color: "#fff" }}>Mapa</Text>
@@ -105,6 +93,13 @@ export default class Mapa extends React.Component {
           <TouchableHighlight>
             <Link to="/reserve" style={styles.menuButton}>
               <Text style={{ color: "#fff" }}>Reservaciones</Text>
+            </Link>
+          </TouchableHighlight>
+        </View>    
+        <View>
+          <TouchableHighlight style={styles.menuButton}>
+            <Link to="/scaner">
+              <Text style={{ color: "#fff" }}>Escanear Código</Text>
             </Link>
           </TouchableHighlight>
         </View>
@@ -139,34 +134,22 @@ export default class Mapa extends React.Component {
             }}
           >
             <TouchableOpacity onPress={this.toggleOpen} style={styles.menu}>
-            <Link to="/reserve" >
               <Icon
                 style={styles.openButton}
                 name="navicon"
                 size={30}
                 color="#fff"
               />
-              </Link>
             </TouchableOpacity>
 
             <View style={styles.header}>
               <Text style={styles.textHeader}>Travel Healtly with Scooter</Text>
             </View>
           </View>
+
           <View style={styles.body}>
-            <View style={styles.container}>
-              <ScrollView alwaysBounceVertical contentContainerStyle={styles.contentContainer}>
-                <View style={styles.getStartedContainer}>
-                  <ScrollView vertical={true}>
-                    <MapView style={styles.mapStyle}
-                      provider={PROVIDER_GOOLE}
-                      region={this.state.region}
-                      showsUserLocation
-                      loadingEnabled />
-                  </ScrollView>
-                </View>
-              </ScrollView>
-            </View>
+            <Text style={styles.header1}>Mapa de Ubicación</Text>
+              <Mapa/>
           </View>
         </MenuDrawer>
       </View>
@@ -177,93 +160,231 @@ export default class Mapa extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    width: '100%', 
-    height: '100%',
-    backgroundColor: '#fff',
+    alignItems: "stretch",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff"
+  },
+  container1: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "stretch",
+    marginTop: "50%",
+    height: "100%"
+  },
+  containerScrool: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    flexDirection: "column",
+    marginTop: "10%"
+  },
+  header1: {
+    marginTop: "10%",
+    fontSize: 25,
+    color: "#000",
+    textAlign: "center"
+  },
+  containerIngresar: {
+    textAlign: "center",
+    color: "#fff",
+    backgroundColor: "#f3b667",
+    fontSize: 20,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 10,
+    borderRadius: 100,
+    paddingVertical: 10,
+    marginHorizontal: 50,
+    marginBottom: 20
+  },
+  containerCancelar: {
+    textAlign: "center",
+    color: "#fff",
+    backgroundColor: "#f3b667",
+    fontSize: 20,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 10,
+    borderRadius: 100,
+    paddingVertical: 10,
+    marginHorizontal: 50,
+    marginBottom: 20,
+    marginTop: 10
+  },
+  containerEmail: {
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+  containerPassword: {
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+  icon: {
+    flex: 1,
+    paddingTop: "5%"
+  },
+  text: {
+    color: "#ffffff",
+    paddingLeft: "25%",
+    paddingBottom: "5%",
+    paddingTop: "5%",
+    fontSize: 17
+  },
+  textInput: {
+    backgroundColor: "transparent",
+    flex: 5,
+    color: "black",
+    paddingLeft: "15%"
+  },
+  button: {
+    position: "relative",
+    bottom: "0%",
+    marginBottom: 20,
+    borderRadius: 100,
+    backgroundColor: "#fff",
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  formulario: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    marginTop: 40,
+    padding: 10
+  },
+  containerIngresar: {
+    height: "25%",
+    marginLeft: "25%",
+    marginRight: "25%",
+    paddingTop: "10%"
+  },
+  containerEmail: {
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+  text: {
+    color: "#fff",
+    paddingLeft: "25%",
+    paddingBottom: "5%",
+    paddingTop: "5%",
+    fontSize: 17
+  },
+  picker: {
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+  textInput: {
+    backgroundColor: "#008080",
+    flex: 5,
+    color: "black",
+    paddingLeft: "15%",
+    opacity: 0.5
+  },
+  containerPassword: {
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    marginLeft: "10%",
+    marginRight: "10%"
   },
   animatedBox: {
     flex: 1,
-    backgroundColor: '#2c7a7b',
+    backgroundColor: "#45CCCC",
+    marginTop: -5
   },
   header: {
-    flex: 2, 
-    height: 75, 
-    backgroundColor: '#2c7a7b',
+    flex: 2,
+    marginTop: -5,
+    backgroundColor: "#B33992"
   },
   body: {
-    flex: 6,
+    flex: 6
   },
-  text:{
-    color:'#000',
-    paddingLeft:'10%',
-    paddingBottom: '5%',
-    paddingTop: '8%',
-    fontSize: 18,
+  text: {
+    color: "#000",
+    paddingLeft: "10%",
+    paddingBottom: "5%",
+    paddingTop: "8%",
+    fontSize: 18
   },
-  textHeader:{
-    color:'white',
-    paddingLeft:'10%',
-    paddingBottom: '5%',
-    paddingTop: '15%',
-    fontSize: 18,
+  textHeader: {
+    color: "white",
+    paddingLeft: "10%",
+    paddingBottom: "5%",
+    paddingTop: "15%",
+    fontSize: 18
   },
   button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
     padding: 10
   },
   menu: {
-    flex: 0.5, 
-    height: 75, 
-    backgroundColor: '#2c7a7b',
+    flex: 0.5,
+    backgroundColor: "#B33992"
   },
   openButton: {
-    marginTop: '50%',
-    marginHorizontal: '15%',
-  },  
+    marginTop: "50%",
+    marginHorizontal: "15%"
+  },
   closeButton: {
-    marginTop: '15%',
-    marginBottom: '20%',
-    marginLeft: '5%',
-    marginRight: '60%',
+    marginTop: "15%",
+    marginBottom: "20%",
+    marginLeft: "5%",
+    marginRight: "60%",
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 5
   },
   menuButton: {
     padding: 10,
-    borderWidth: 2,
-    borderColor: '#fff',
-    backgroundColor: 'rgba(255,255,255, .1)',
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "#fff",
+    backgroundColor: "#8DB8B8"
   },
   containerTable: {
     marginHorizontal: 20
   },
   item: {
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
     margin: 1,
-    height: 30,
+    height: 30
   },
   itemInvisible: {
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent"
   },
   itemText: {
-    color: '#fff'
+    color: "#fff"
   },
   itemContent: {
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
     margin: 1,
-    height: 30,
-  },
-  mapStyle: {
-    width: "100%",
-    height: Dimensions.get('window').height,
-  },
+    height: 30
+  }
 });

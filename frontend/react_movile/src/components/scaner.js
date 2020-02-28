@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button,AsyncStorage } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function Escaner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-
+  
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -15,7 +15,9 @@ export default function Escaner() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    AsyncStorage.setItem('idscooter',data.toString())
+    alert(`Código de barra con el tipo ${type} y la información ${data} fueron escaneados!`);
+    //return this.props.history.push("/reserve");
   };
 
   if (hasPermission === null) {
@@ -24,6 +26,15 @@ export default function Escaner() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+  asyncstorageClear = async () => {
+    try {
+      await AsyncStorage.clear();
+      this.setState({ idscooter: "" });
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <View

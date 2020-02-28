@@ -41,7 +41,7 @@ export default class LoginScreen extends React.Component {
         }
       })
       .catch(error => {
-        alert(error)
+        alert("Datos incorrectos")
       })
     }
   }
