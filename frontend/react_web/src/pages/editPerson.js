@@ -95,6 +95,7 @@ class EditPersona extends Component {
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   type="text"
                   name="nombres"
+                  pattern="[A-Z a-z]*"
                   value={nombres}
                   required={true}
                   placeholder="Arthuro..."
@@ -112,6 +113,7 @@ class EditPersona extends Component {
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   type="text"
                   name="apellidos"
+                  pattern="[A-Z a-z ñÑ]*"
                   value={apellidos}
                   required={true}
                   placeholder="Pendragón..."
@@ -131,6 +133,7 @@ class EditPersona extends Component {
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
                   id="direccion"
                   type="text"
+                  pattern="[A-Z a-z 0-9 ñÑ]*"
                   name="direccion"
                   value={direccion}
                   required={true}
@@ -151,6 +154,7 @@ class EditPersona extends Component {
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   type="text"
                   name="correo"
+                  pattern="[a-z]+[a-z0-9.-_]*@[a-z]+[a-z0-9]*.[a-z]{2,3}[.]?[a-z]*"
                   value={correo}
                   required={true}
                   placeholder="example@gmail.com"

@@ -118,6 +118,7 @@ class AddScooter extends Component {
                   className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                   id="descripcion"
                   name="descripcion"
+                  pattern="[A-Z a-z Ññ 0-9]*"
                   type="text"
                   required={true}
                   value={descripcion}
@@ -147,6 +148,7 @@ class AddScooter extends Component {
                     className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                     id="codigo"
                     name="codigo"
+                    pattern="[A-Z a-z ñÑ 0-9]*"
                     type="text"
                     required={true}
                     value={codigo}

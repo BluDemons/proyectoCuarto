@@ -122,6 +122,7 @@ class EditScooter extends Component {
                   id="descripcion"
                   name="descripcion"
                   type="text"
+                  pattern="[A-Z a-z Ññ 0-9]*"
                   required={true}
                   value={descripcion}
                   placeholder="Añade una descripción"
@@ -150,6 +151,7 @@ class EditScooter extends Component {
                     className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                     id="codigo"
                     name="codigo"
+                    pattern="[A-Z a-z ñÑ 0-9]*"
                     type="text"
                     required={true}
                     value={codigo}
